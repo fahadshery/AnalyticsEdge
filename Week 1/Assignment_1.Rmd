@@ -1,0 +1,52 @@
+An analytical detective
+========================================================
+
+Crime is an international concern, but it is documented and handled in very different ways in different countries. In the United States, violent crimes and property crimes are recorded by the Federal Bureau of Investigation (FBI).  Additionally, each city documents crime, and some cities release data regarding crime rates. The city of Chicago, Illinois releases crime data from 2001 onward online.
+
+Chicago is the third most populous city in the United States, with a population of over 2.7 million people. The city of Chicago is shown in the map below, with the state of Illinois highlighted in red. 
+
+There are two main types of crimes: violent crimes, and property crimes. In this problem, we'll focus on one specific type of property crime, called "motor vehicle theft" (sometimes referred to as grand theft auto). This is the act of stealing, or attempting to steal, a car. In this problem, we'll use some basic data analysis in R to understand the motor vehicle thefts in Chicago. Please download the file **mvtWeek1.csv** for this problem (**do not open this file in any spreadsheet software before completing this problem because it might change the format of the Date field**). Here is a list of descriptions of the variables:
+
+- **ID**: a unique identifier for each observation
+- **Date**: the date the crime occurred
+- **LocationDescription**: the location where the crime occurred
+- **Arrest**: whether or not an arrest was made for the crime (TRUE if an arrest was made, and FALSE if an arrest was not made)
+- **Domestic**: whether or not the crime was a domestic crime, meaning that it was committed against a family member (TRUE if it was domestic, and FALSE if it was not domestic)
+- **Beat**: the area, or "beat" in which the crime occurred. This is the smallest regional division defined by the Chicago police department.
+- **District**: the police district in which the crime occured. Each district is composed of many beats, and are defined by the Chicago Police Department.
+- **CommunityArea**: the community area in which the crime occurred. Since the 1920s, Chicago has been divided into what are called "community areas", of which there are now 77. The community areas were devised in an attempt to create socially homogeneous regions.
+- **Year**: the year in which the crime occurred.
+- **Latitude**: the latitude of the location at which the crime occurred.
+- **Longitude**: the longitude of the location at which the crime occurred.
+
+## Problem 1.1 - Loading the Data
+
+Read the dataset mvtWeek1.csv into R, using the read.csv function, and call the data frame "mvt". Remember to navigate to the directory on your computer containing the file mvtWeek1.csv first. It may take a few minutes to read in the data, since it is pretty large. Then, use the str and summary functions to answer the following questions.
+
+**Q**: How many rows of data (observations) are in this dataset?
+
+str(mvt)
+
+**ANS: 191641**
+
+**Q**: How many variables are in this dataset?
+
+**ANS**: If you type str(mvt) in the R console, the first row of output says that this is a data frame with 11 variables.
+
+**Q**: Using the "max" function, what is the maximum value of the variable "ID"?
+
+**ANS**: You can compute the maximum value of the ID variable with max(mvt$ID).
+
+**Q**: What is the minimum value of the variable "Beat"?
+
+**ANS**: If you type summary(mvt) in your R console, you can see the summary statistics for each variable. This shows that the minimum value of Beat is 111. Alternatively, you could use the min function by typing min(mvt$Beat).
+
+**Q**: How many observations have value TRUE in the Arrest variable (this is the number of crimes for which an arrest was made)?
+
+**ANS**: If you type summary(mvt) in your R console, you can see the summary statistics for each variable. This shows that 15,536 observations fall under the category TRUE for the variable Arrest.
+
+**Q**: How many observations have value a LocationDescription value of ALLEY?
+
+**ANS**: If you type summary(mvt) in your R console, you can see the summary statistics for each variable. This shows that 2,308 observations fall under the category ALLEY for the variable LocationDescription. You can also read this from table(mvt$LocationDescription).
+
+## Problem 2.1 - Understanding Dates in R
