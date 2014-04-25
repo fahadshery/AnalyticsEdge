@@ -18,3 +18,207 @@ We could display daily crime averages using a line graph, like the one shown her
 
 For each hour and day, we have the total number of crimes that occurred. This is a valid representation of the data, but large tables of numbers can be hard to read and understand. So how can we make the table more interesting and usable? A great way to visualize information in a two-dimensional table is with a heat map. Heat maps visualize data using three attributes. Two of the attributes are on the x and y-axes, typically displayed horizontally and verticall . The third attribute is represented by shades of color. For example, the x-axis could be hours of the day, the y-axis could be days of the week, and the colors could correspond to the amount of crime. In a heat map, we can pick different color schemes based on the type of data to convey different messages. In crime, a yellow to red color scheme might be appropriate because it can highlight some of the more dangerous areas in red. Your eye is naturally drawn to the red areas of the plot. In other applications, both high and low values are meaningful, so having a more varied color scheme might be useful. And in other applications, you might only want to see cells with high values, so you could use a gray scale to make the cells with low values white. The x and y-axes in a heat map don't need to be continuous.
 In our example, we have a categorical or factor variable -- the day of the week. And we can even combine a heat map with a geographical map, which we'll discuss later in this lecture. This type of heat map is frequently used in predictive policing to show crime hot spots in a city. In this lecture, we'll use Chicago motor vehicle theft data to explore patterns of crime, both over days of the week, and over hours of the day. We're interested in analyzing the total number of car thefts that occur in any particular hour of a day of the week over our whole data set. 
+
+we'll be using the dataset mvt.csv. Please download this dataset before starting this video. This data comes from the Chicago Police Department. 
+
+In this video, we'll create a basic line plot to visualize crime trends. 
+
+Let's start by reading in our data.
+
+```{r Read in the mvt data}
+mvt = read.csv("C:/Users/Fahad/Documents/R Projects/Data/mvt.csv")
+str(mvt)
+```
+
+It read our Date column as a factor so we will reload the data to disable the string being read as a factor:
+
+
+```{r Read in the mvt data final}
+mvt = read.csv("C:/Users/Fahad/Documents/R Projects/Data/mvt.csv", stringsAsFactors = FALSE)
+str(mvt)
+```
+
+Now we can see that the Date is a character type now. We have over 190,000 observations of three different variables--the date of the crime, and the location of the crime, in terms of latitude and longitude. We want to first convert the Date variable to a format that R will recognize so that we can extract the day of the week and the hour of the day.
+
+We can do this using the strptime function. So we want to replace our variable, Date, with the output of the strptime function, which takes as a first argument our variable, Date, and then as a second argument the format that the date is in. Here, we can see in the output from the str function that our format is the month slash the day slash the year, and then the hour colon minutes. So our format equals, "%m/%d/%y %H:%M", close the parentheses, and hit Enter:
+
+```{r Convert Date column to Date Format}
+mvt$Date = strptime(mvt$Date, format = "%m/%d/%y %H:%M")
+class(mvt$Date)
+str(mvt$Date)
+```
+
+Or you can use achieve the same result using lubridate library which is really easy to use and works with both factor and character type:
+
+```{r lubridate example}
+install.packages("lubridate")
+library(lubridate)
+mvt$Date = mdy_hm(mvt$Date)
+class(mvt$Date)
+```
+
+If our date format was 31/12/2012 23:59:00, we could use the lubridate dmy_hms() function to convert it to date format.
+
+In this format, we can extract the hour and the day of the week from the Date variable, and we can add these as new variables to our data frame. We can use the lubridate functions to do it easily. You can extract information from date times with the functions like **second(), minute(), hour(), day(), wday(), yday(), week(), month(), year(), and tz()**. 
+
+You can also use each of these to set (i.e, change) the given information. Notice that this will alter the date time. wday() and month() have an optional label argument, which replaces their numeric output with the name of the weekday or month.
+
+```{r extract date, hour}
+
+mvt$WeekDay = wday(mvt$Date, label=TRUE, abbr=FALSE)
+mvt$Hour = hour(mvt$Date)
+str(mvt)
+```
+
+Let's start by creating the line plot with just one line and a value for every day of the week. We want to plot as that value the total number of crimes on each day of the week.
+
+We want to plot as that value the total number of crimes on each day of the week. We can get this information by creating a table of the WeekDay variable.
+
+```{r weekday table}
+
+table(mvt$WeekDay)
+
+```
+
+This gives the total amount of crime on each day of the week. Let's save this table as a data frame so that we can pass it to ggplot as our data.
+
+```{r save table to dataframe}
+
+WeekdayCounts = as.data.frame(table(mvt$WeekDay))
+str(WeekdayCounts)
+```
+
+We can see that our data frame has seven observations (because we have seven days a day), and two different variables. The first variable, called Var1, gives the name of the day of the week, and the second variable, called Freq, for frequency, gives the total amount of crime on that day of the week.
+
+Now, we're ready to make our plot.
+
+```{r ggplot}
+
+library(ggplot2)
+ggplot(WeekdayCounts, aes(x=Var1, y=Freq)) + geom_line(aes(group=1))
+```
+
+paramaters in the geom_line method just groups all of our data into one line, since we want one line in our plot. We can see that this is very close to the plot we want. We have the total number of crime plotted by day of the week.
+
+If you didn't use the lubridate method to extract the WeekDay and instead used weekdays(mvt$Date) method, you will not get an ordered factor of the Weekdays i.e. Sunday, Monday, Tuesday...Friday. Instead you will get an unordered list i.e. Monday, Friday, Sunday etc. We can convert the Var1 into an ordered factor variable.
+
+This will signal the ggplot that the ordering is meaningful. We can do this by using the factor function. So let's start by the variable we want to convert, and set that equal to the output of the factor function, where the first argument is our variable, WeekdayCounts$Var1, the second argument is ordered = TRUE. This says that we want an ordered factor. And the third argument, which is levels, should be equal to a vector of the days of the week in the order we want them to be in. We'll use the c function to do this. So first, in quotes, type "Sunday" -- we want Sunday first-- and then "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday". Go ahead and close both parentheses and hit Enter.
+
+```{r Convert weekday to Ordered factor}
+
+WeekdayCounts$Var1 = factor(WeekdayCounts$Var1, ordered=TRUE, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+ggplot(WeekdayCounts, aes(x=Var1, y=Freq)) + geom_line(aes(group=1))
+
+```
+But you can see that Lubridate saved us the hassle of converting it to the ordered list at the first instance.
+
+The last thing we'll want to do to our plot is just change the x- and y-axis labels, since they're not very helpful as they are now.
+
+```{r change x and y labels}
+ggplot(WeekdayCounts, aes(x=Var1, y=Freq)) + geom_line(aes(group=1)) + xlab("Day of the Week") + ylab("Number of Crimes/Total Motor Vehicle Thefts") + ggtitle("Crime Rate Daily View")
+
+```
+
+Create a new line plot, like the one in Video 3, but add the argument "linetype=2"
+
+```{r linetype}
+
+ggplot(WeekdayCounts, aes(x=Var1, y=Freq)) + geom_line(aes(group=1), linetype=2) + xlab("Day of the Week") + ylab("Number of Crimes/Total Motor Vehicle Thefts") + ggtitle("Crime Rate Daily View")
+
+```
+We can see that it changes the line type to dashed. Now, change the alpha parameter to 0.3 by replacing "linetype=2" with "alpha=0.3" in the plot command and see what happens:
+
+```{r alpha paramter}
+
+ggplot(WeekdayCounts, aes(x=Var1, y=Freq)) + geom_line(aes(group=1), alpha=0.3) + xlab("Day of the Week") + ylab("Number of Crimes/Total Motor Vehicle Thefts") + ggtitle("Crime Rate Daily View")
+```
+
+It made the line lighter in colour.
+
+## Heat Map
+
+Next, we'll add the hour of the day to our line plot, and then create a heat map.
+
+We can do this by creating a line for each day of the week and making the x-axis the hour of the day. We first need to create a counts table for the weekday, and hour.
+
+```{r table for weekday and hour}
+table(mvt$WeekDay, mvt$Hour)
+
+```
+
+This table gives, for each day of the week and each hour, the total number of motor vehicle thefts that occurred. For example, on Friday at 4 AM, there were 473 motor vehicle thefts, whereas on Saturday at midnight, there were 2,050 motor vehicle thefts.
+
+Let's save this table to a data frame so that we can use it in our visualizations.
+
+```{r save table for weekday and hour into dataframe}
+
+DayHourCounts = as.data.frame(table(mvt$WeekDay, mvt$Hour))
+str(DayHourCounts)
+```
+
+We can see that we have 168 observations-- one for each day of the week and hour pair, and three different variables. The first variable, Var1, gives the day of the week. The second variable, Var2, gives the hour of the day. And the third variable, Freq for frequency, gives the total crime count. 
+
+Let's convert the second variable, Var2, to actual numbers and call it Hour, since this is the hour of the day, and it makes sense that it's numerical. 
+
+```{r convert V2 into int}
+DayHourCounts$Hour = as.numeric(as.character(DayHourCounts$Var2))
+str(DayHourCounts)
+```
+
+This is how we convert a factor variable to a numeric variable.
+
+Now we're ready to create our plot. We just need to change the group to Var1, which is the day of the week. So we'll use the ggplot function where our data frame is DayHourCounts, and then in our aesthetic, we want the x-axis to be Hour this time, the y-axis to be Freq, and then in the geom_line option, we want the aesthetic to have the group equal to Var1, which is the day of the week. 
+
+```{r create weekday vs hour ggplot}
+
+ggplot(DayHourCounts, aes(x=Hour, y=Freq)) + geom_line(aes(group=Var1))
+
+```
+
+It has seven lines, one for each day of the week. While this is interesting, we can't tell which line is which day, so let's change the colors of the lines to correspond to the days of the week. To do that, change after group = Var1, add color = Var1.
+
+```{r colour by day}
+
+ggplot(DayHourCounts, aes(x=Hour, y=Freq)) + geom_line(aes(group=Var1, color=Var1), size = 2)
+
+```
+
+Now in our plot, each line is colored corresponding to the day of the week. This helps us see that on Saturday and Sunday, for example, the green and the teal lines, there's less motor vehicle thefts in the morning. While we can get some information from this plot, it's still quite hard to interpret. Seven lines is a lot. Let's instead visualize the same information with a heat map. To make a heat map, we'll use our data in our data frame DayHourCounts.
+
+First change the order of the Weekday as shown above if it is not in chronological order. In fact let's put Weekdays first and weekend at the end to reinforce the learning:
+
+```{r change the order of Weekdays again}
+
+DayHourCounts$Var1 = factor(DayHourCounts$Var1, ordered=TRUE, levels=c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+```
+
+Now let's make our heat map. We'll use the ggplot function like we always do,
+
+
+```{r Heat map}
+
+ggplot(DayHourCounts, aes(x=Hour, y=Var1)) + geom_tile(aes(fill = Freq))
+
+```
+
+So how do we read this? For each hour and each day of the week, we have a rectangle in our heat map. The color of that rectangle indicates the frequency, or the number of crimes that occur in that hour and on that day. Our legend tells us that lighter colors correspond to more crime. So we can see that a lot of crime happens around midnight, particularly on the weekends. 
+
+We can change the label on the legend, and get rid of the y label to make our plot a little nicer.
+
+```{r remove y axis Var1}
+
+ggplot(DayHourCounts, aes(x=Hour, y=Var1)) + geom_tile(aes(fill = Freq)) + scale_fill_gradient(name="Total MV Thefts") + theme(axis.title.y = element_blank())
+
+```
+scale_fill_gradient() method defines properties of the legend, and we want name = "Total MV Thefts", for total motor vehicle thefts. Then we added, in the theme(axis.title.y = element_blank()). This is what you can do if you want to get rid of one of the axis labels.
+
+We can also change the color scheme.
+
+
+```{r change colour scheme}
+
+ggplot(DayHourCounts, aes(x=Hour, y=Var1)) + geom_tile(aes(fill = Freq)) + scale_fill_gradient(name="Total MV Thefts", low="white", high="red") + theme(axis.title.y = element_blank())
+
+```
+
+This is a common color scheme in policing. It shows the hot spots, or the places with more crime, in red. So now the most crime is shown by the red spots and the least crime is shown by the lighter areas. It looks like Friday night is a pretty common time for motor vehicle thefts. We saw something that we didn't really see in the heat map before. It's often useful to change the color scheme depending on whether you want high values or low values to pop out, and the feeling you want the plot to portray. 
