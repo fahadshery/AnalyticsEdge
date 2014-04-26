@@ -1,0 +1,104 @@
+A Heatmap on the United States
+========================================================
+
+In this Lecture, we'll be using the dataset murders.csv. This data is provided by the U.S. Census Bureau and the FBI.
+
+Let's start by reading in our data set and calling it murders
+
+```{r read in data}
+murders = read.csv("murders.csv")
+str(murders)
+```
+
+We have 51 observations for the 50 states plus Washington, DC, and six different variables-- the name of the state, the population, the population density, the number of murders, the number of murders that used guns, and the rate of gun ownership. 
+
+A map of the United States is included in R. Let's load the map and call it statesMap.
+
+```{r Load Map}
+statesMap = map_data("state")
+str(statesMap)
+```
+This is just a data frame summarizing how to draw the United States. To plot the map, we'll use the polygons geometry of ggplot.
+
+```{r draw map}
+ggplot(statesMap, aes(x=long, y=lat, group=group)) + geom_polygon(fill = "white", color="black") + coord_map("mercator")
+
+```
+
+The first argument of the ggplot is our data frame statesMap, and then in the aesthetic, we want to define the x-axis to be Long, the y-axis to be Lat, for longitude and latitude, and then group equals the group variable in our data frame. Close both parentheses, and now we want to add the *geom_polygon* where the first argument, fill = "white". This will fill our states just with the color white. And then we want to define color = "black". This will outline the states in black. Lastly, we just need to add the coord_map("mercator").
+
+Before we can plot our data on this map, we need to make sure that the state names are the same in the murders data frame and in the statesMap data frame. We can see that In the murders data frame, the state names have a capital letter starting the state name, but in the states map data frame, the state names are all lowercase letters. 
+
+So let's create a new variable called region, to match the state name variable in the statesMap data frame, in our murders data frame. So we'll call this variable region.
+
+```{r match state names}
+murders$region = tolower(murders$State)
+str(murders)
+```
+
+This will just convert the State variable to all lowercase letters and store it as a new variable called region. Now we can join the statesMap data frame with the murders data frame using the merge command, which matches rows up based on a shared variable.
+
+We just defined the variable region, which exists in both data frames.
+
+```{r join the data frame by region variable}
+
+murderMap = merge(statesMap, murders, by="region")
+str(murderMap)
+```
+
+We have the same number of observations here that we had in the statesMap data frame, but now we have both the variables from the statesMap data frame and the variables from the murders data frame, which were matched up based on the region variable.
+
+Now, let's plot the number of murders on our map of the United States. 
+
+```{r plot murders on US map}
+ggplot(murderMap, aes(x=long, y=lat, group = group, fill = Murders)) + geom_polygon(color = "black") + scale_fill_gradient(low = "black", high = "red", guide = "legend")
+
+```
+
+
+So we'll use the ggplot function, where the first argument is our data frame, murderMap, and then for our aesthetic, we want to define x=Long and y=Lat, like before, as well as group=group, but this time, we want to indicate that fill = Murders, our murders variable. Again, we want to add the polygon geometry, where here we'll just specify color="black" so that the states are outlined in black, and then we'll add the scale_fill_gradient layer, which will define the coloring of our map. We want low values of murders to be closer to black and high values to be closer to red. Lastly, we'll just make sure legend shows up on our map by typing guide="legend".
+
+you should see that each of the states is colored by the number of murders in that state. Higher number of murders have states colored more in red. So it looks like here, California and Texas have the highest number of murders, but is this is just because they're the most populous states? Let's plot a map of the population of each state to check.
+
+```{r plot population}
+ggplot(murderMap, aes(x=long, y=lat, group = group, fill = Population)) + geom_polygon(color = "black") + scale_fill_gradient(low = "black", high = "red", guide = "legend")
+
+```
+
+Now, we have a population map, but it looks almost exactly the same as the murders map. So we need to plot the murder rate instead of the number of murders so that we aren't just plotting a population map.
+
+So let's create a new variable that's the number of murders per 100,000 population.
+
+```{r add murder rate}
+murderMap$murderRate = murderMap$Murders / murderMap$Population * 100000
+
+```
+
+Now, let's redo our plot with the fill equal to MurderRate.
+
+```{r plot murder rate}
+ggplot(murderMap, aes(x=long, y=lat, group = group, fill = murderRate)) + geom_polygon(color = "black") + scale_fill_gradient(low = "black", high = "red", guide = "legend")
+
+```
+
+This plot is surprisingly maroon looking. There aren't really any red states. **Why?**
+It turns out that Washington, DC is an outlier with an abnormally high murder rate, but it's so small that we can't even see it on the map. So let's redo our plot, removing any observations with murder rates above 10, which will exclude Washington, DC.
+
+```{r plot exclude murder rate < 10}
+ggplot(murderMap, aes(x=long, y=lat, group = group, fill = murderRate)) + geom_polygon(color = "black") + scale_fill_gradient(low = "black", high = "red", guide = "legend", limits = c(0.9,10))
+
+```
+
+we see now a variety of colors on the map. It looks like the murder rate is pretty high in the state of Louisiana.
+
+Let's Redo the map, but this time fill each state with the variable GunOwnership. This shows the percentage of people in each state who own a gun. 
+
+
+```{r plot GunOwnership precentage}
+ggplot(murderMap, aes(x=long, y=lat, group = group, fill = GunOwnership)) + geom_polygon(color = "black") + scale_fill_gradient(low = "black", high = "red", guide = "legend")
+
+```
+
+It looks like Montana have the highest gun ownership rate.
+
+we saw how we can make a heat map on a map of the United States, which is very useful for organizations like the World Health Organization or the Centers for Disease Control, who want to show data to the public organized by state or country.

@@ -1,0 +1,224 @@
+Recitation
+========================================================
+
+we're going to be discussing examples of good and bad visualizations, and then discussing how to make better versions using our R skills. Remember, visualization is an art form, and it's inherently subjective. You should try to form your own opinions on the material as we go through it.
+
+we'll use the dataset intl.csv. This data comes from the MIT International Students Office.
+
+Okay, so now we're going to start with a simple bar plot of the MIT international student data. So first, let's load the ggplot library, ggplot2, and load the data frame.
+
+```{r load data}
+library(ggplot2)
+intl = read.csv("intl.csv")
+str(intl)
+```
+Now, the structure of this date frame is very simple. There are two columns, two variables. The first one, the region, and the second one is the percentage of international students who came from that region.
+
+Let's make a simple bar plot
+
+```{r simple bar plot}
+ggplot(intl, aes(x=Region, y=PercentOfIntl)) + geom_bar(stat = "identity") + geom_text(aes(label=PercentOfIntl))
+
+```
+stat = "identity" is pretty simple. Geometry bar has multiple modes of operation. And stat = "identity" says, use the value of the y variable as is, which is what we want. The height of the bar is the value of the y variable. Now, there are other modes, including one that counts the number of rows for each value of x, and plots that instead. So you can look at the documentation for ggplot to see the different options and how they work. But stat = "identity" is what we want right now.
+
+To label my bars with the value, so that it's easy to read in closer detail, we are going to use *geom_text*. The aesthetic of our text is simply to have the value of a label, the text of a label, to be the value of our percentages. We have to pass one argument to this *geom_bar*, and it's called stat = "identity"
+
+The values are between zero and one, which looks kind of strange. The labels are actually lying over the top of the columns, which isn't very nice, and the regions aren't really ordered in any way that's useful. They're actually ordered in alphabetical order, but I think it would be much more interesting to have them in descending order.
+
+the x-axis is out of order. And the reason for this is that ggplot defaults to alphabetical order for the x-axis. What we need to do is make Region an ordered factor instead of an unordered factor. We can do this with the reorder command and the transform command. So let's write this out.
+
+```{r order Region}
+intl = transform(intl, Region = reorder(Region, -PercentOfIntl))
+str(intl)
+```
+
+So we transformed the international(intl) data frame. we reordered the Region by a reordering of itself, based on decreasing order of PercentOfIntl. I put a negative sign in front of PercentOfIntl. So that negative sign means decreasing order. If we had left that out, it would have actually ordered them in increasing order.
+
+So that's one thing fixed.
+
+Another thing we didn't like was that the numbers were between zero and one, which looks a little bit messy. So let's just simply multiply all the values by 100.
+
+```{r change percentage}
+intl$PercentOfIntl = intl$PercentOfIntl * 100
+str(intl)
+```
+
+And now the other things we have to fix, like the text overlying and the x-axis being all bunched up like that, we're going to do that in a new ggplot command. So I'm going to break it across multiple lines.
+
+```{r remove text overlaying on x-axis}
+
+ggplot(intl, aes(x=Region, y=PercentOfIntl)) + geom_bar(stat = "identity", fill = "dark blue") + geom_text(aes(label = PercentOfIntl), vjust = -0.4) + ylab("Percent (%) of International Students") + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle= 45, hjust= 1))
+```
+
+It was a long command so let's just explain it:
+
+1. Start by ggplot and pass the dataset along with aes i.e. what to plot of x,y axis
+2. Which graph to plot? So we want bar plot with stat = "identity" and dark blue colour
+3. Now we want to add text/label to our bars of the PercentofIntl values and adjust it a bit up from the bar. i.e. it moves the labels up a little bit and off the top of the bars. You can play with that. So a positive value will move it down, and a negative value will move it up.
+4. We want a good y-axis label so change that
+5. We want to get rid of Region as we know from x-axis values that its a region any way and we want put the labels in an angled way for us to easily read them. So we've got our labels vjust-ed above the columns. The bars themselves are dark blue. The numbers are now between 0 and 100, instead of zero and one. We can read all the text labels. And it's generally a lot more readable than the pie plot or our original ggplot, at that.
+
+Now Let's try and plot a world map with a new data (intlall.csv) set that has the number of international students from each country.
+
+```{r read newdataset for world map}
+
+library(ggmap)
+intlall = read.csv("intlall.csv", stringsAsFactors = FALSE)
+str(intlall)
+head(intlall)
+```
+
+There's a citizenship column that's the country name, number of undergraduates, number of graduates, special undergraduates and graduates, exchange or visiting, and a total column. Now there's these NAs in here, but they're not really NAs. They're just 0's. So we will replace NA's with 0's
+
+```{r replace NA with 0}
+
+intlall[is.na(intlall)] = 0
+str(intlall)
+head(intlall)
+```
+
+So what it does it it checks if the value is NA and returns TRUE, if it is TRUE then it replaces it by 0 and it is FALSE then it does nothing
+
+Now let's load the world map
+
+```{r load the world map}
+
+worldMap = map_data("world")
+str(worldMap)
+```
+
+So the first two columns are the longitude and latitude; third column is something called group -- that's actually a group for each country, using a different number for each country; order, we'll get to that later; region is just the country name, and subregion is sometimes used for some countries to describe islands and other things like that.
+
+So we want to shove the world_map data frame and the intlall data frame into one data frame, so we can use it for ggplot.
+
+```{r merge world map with intall data}
+
+worldMap = merge(worldMap, intlall, by.x="region", by.y="Citizenship")
+str(worldMap)
+```
+
+Let's plot the map now:
+
+```{r plot the world map }
+
+ggplot(worldMap, aes(x=long, y=lat, group = group)) + geom_polygon(fill="white", color="black") + coord_map("mercator")
+
+```
+
+Let's explain the above command:
+
+1. create a ggplot passing it the dataset, x,y-axis and group
+2. plot polygon for each country and fill by white colour and border should be black
+3. Use Mercator projection
+
+So that looks kind of like a world map. There's a few things going on here. First of all, all the countries look like big black blobs. well, sometimes the merge can reorder the data. And it turns out that what the worldMap data frame really is actually a list of latitude and longitude points that define the border of each country. So if we accidentally reorder our data frame they no longer make any sense. And as it goes from point to point, the points might be on the other side of the country as it defines the polygon. So, we have to reorder the data in the correct order.
+
+```{r reorder the worldmap data}
+
+worldMap = worldMap[order(worldMap$group, worldMap$order), ]
+str(worldMap)
+```
+
+So what we did here is we reordered the worldMap vairable based on the group and the order as rows and we want to retain all the columns. Let's replot:
+
+```{r re-plot the world map }
+
+ggplot(worldMap, aes(x=long, y=lat, group = group)) + geom_polygon(fill="white", color="black") + coord_map("mercator")
+
+```
+OK, next problem.
+Some of the countries are missing. Now of course, the USA is missing because MIT is in the USA, so that wouldn't be an international student coming from the USA. And some parts of Africa are missing, presumably because there are no students at MIT right now who are from those countries. But you'll also notice that Russia is missing, and a lot of countries near it, as well as China. Which is definitely not true.
+
+The reason China is missing is that it has a different name in the MIT data frame than in the world_map data frame. So when we merged them, it was dropped from the data set because it didn't match up. So to see what it's called in the MIT data frame, let's just do a table.
+
+```{r table intlall}
+
+table(intlall$Citizenship)
+```
+
+If we scroll all the way up, we'll see it says "China (People's Republic Of)". Now, in the world_map data frame, it's simply called "China". So, what we can do is change the MIT data frame. So let's say the citizenship column, the one row where it equals "China (People's Republic Of)" should just be "China".
+
+```{r change intlall to have same name as worldMap variable}
+
+intlall$Citizenship[intlall$Citizenship == "China (People's Republic Of)"] = "China"
+table(intlall$Citizenship)
+table(worldMap$region)
+```
+
+So we've fixed that. So now the MIT data frame is consistent with the worldMap data frame. So now we have to go through the merge again. So let's say worldMap is a merge of a fresh copy of the *map_data*, the intlall data frame with China fixed. It's called region in the world_map data, and it's called Citizenship in the MIT data. We also need to do the reordering again.
+
+```{r remerge with fresh copy of intlall}
+worldMap = merge(map_data("world"), intlall, by.x="region", by.y="Citizenship")
+worldMap = worldMap[order(worldMap$group, worldMap$order), ]
+str(worldMap)
+```
+
+So now let's replot:
+
+```{r re-plot the world map with fixed data problem }
+
+ggplot(worldMap, aes(x=long, y=lat, group = group)) + geom_polygon(aes(fill=Total, color="black")) + coord_map("mercator")
+
+```
+So Russia is missing for similar reasons, but we won't deal with that now because it's a little bit annoying. But you get the idea.
+
+This is pretty interesting actually. So we can see that Canada, and China, and India supply a large number of international students to MIT. But it is a little bit confusing doing it on a per country basis, because Europe, presumably, has quite a few students at MIT. But because Europe is made up of many small countries, it doesn't look very impressive. Maybe if all the European countries were grouped together, it would look about the same color as Canada. But it's hard to tell.
+
+There are also other projections we can look at. So this is a Mercator projection. What I want to show you is an orthographic projection that allows you to sort of view the map in 3D, like a globe. So let's try that out.
+
+```{r re-plot the world map with 3D view }
+
+ggplot(worldMap, aes(x=long, y=lat, group = group)) + geom_polygon(aes(fill=Total, color="black")) + coord_map("ortho", orientation=c(20,30,0))
+
+```
+orientation is almost like thinking about where in the world you want to focus on. So this is a latitude and longitude, 20 degrees and 30 degrees.
+
+That's quite a nice visualization because if you want to look just at Africa and Europe, this is the way to go. We can still see China, and Canada, and South America in there, as well. Let's do something a little bit more personal. I want to change the coordinates, now, to -37 and 175.
+
+```{r re-plot the world map with changed coordinates }
+
+ggplot(worldMap, aes(x=long, y=lat, group = group)) + geom_polygon(aes(fill=Total, color="black")) + coord_map("ortho", orientation=c(-37,175,0))
+
+```
+
+## Using Line Charts Instead
+
+we'll be using the dataset households.csv. Please download this dataset before starting the video. This data comes from the U.S. Census Bureau.
+
+We'll be using the package "reshape2" in this video. It should already be installed for you (it was a dependency of an earlier package), but if the melt function does not work properly for you in this video, go ahead and install and load the package with the commands:
+
+```{r read and load libraries and data for example 2}
+library(ggplot2)
+library(reshape2)
+houseHolds = read.csv("households.csv")
+str(houseHolds)
+```
+
+we see that there is a year column and then six other columns for each of the different household types. So this is actually a problem for us. Given this structure of a data frame, what would we put in the aesthetic for our ggplot command?  In fact, I don't think it's really possible.
+The reason is that ggplot needs it in the form of: year, group, and fraction. The solution is to use the melt function from the reshape package. Melt will take a 2-dimensional data frame like ours, and convert it into exactly the right form we need for ggplot2.
+
+Now, let's look at the first two columns of our households data frame:
+
+```{r look at first two columns}
+houseHolds[,1:2]
+head(melt(houseHolds, id="Year"))
+```
+So, basically, what's happened is that each value of MarriedWChild has turned into its own row in the new data frame. To make it more clear, perhaps, let's look at the first three columns of households.
+
+
+```{r look at first first 6 records}
+houseHolds[,1:3]
+melt(houseHolds, id="Year")[1:10,]
+```
+
+So there you can see the eight values of MarriedWChild, and the first two values of MarriedWOChild. So there's that 30.3 up there, gone down to 30.3 here, 29.9 gone to down here. So every value in our data frame now corresponds to a new row in our melted data frame, which is exactly what we need for ggplot.
+
+So let's try plotting this melted data frame:
+
+```{r melted data plot}
+ggplot(melt(houseHolds, id="Year"), aes(x=Year, y=value, color=variable)) + geom_line(size=2) + geom_point(size=5) + ylab("Percentage of Households")
+
+```
+
+Now, this is actually quite interesting, you can see just how quickly MarriedWChild is decreasing as a relative share. You can also more clearly see that MarriedWOChild is pretty much flat, and that the differences being made up by the other four types of households is steadily increasing over the years. So there you have it, the same data, plotted in two different ways.
