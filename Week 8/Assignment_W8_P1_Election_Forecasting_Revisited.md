@@ -7,18 +7,32 @@ In this homework problem, we'll revisit our logistic regression model from Week 
 
 First, load the ggplot2, maps, and ggmap packages using the library function. All three packages should be installed on your computer from lecture, but if not, you may need to install them too using the install.packages function.
 
-```{r}
+
+```r
 library(ggplot2)
 library(maps)
 library(ggmap)
 ```
+
 Then, load the US map and save it to the variable statesMap:
 
 
-```{r get state map}
+
+```r
 statesMap = map_data("state")
 str(statesMap)
 ```
+
+```
+## 'data.frame':	15537 obs. of  6 variables:
+##  $ long     : num  -87.5 -87.5 -87.5 -87.5 -87.6 ...
+##  $ lat      : num  30.4 30.4 30.4 30.3 30.3 ...
+##  $ group    : num  1 1 1 1 1 1 1 1 1 1 ...
+##  $ order    : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ region   : chr  "alabama" "alabama" "alabama" "alabama" ...
+##  $ subregion: chr  NA NA NA NA ...
+```
+
 
 The maps package contains other built-in maps, including a US county map, a world map, a basic new zealand map, usa, Pacific Centric Low resolution World Map and maps for France and Italy.
 
@@ -26,10 +40,33 @@ The maps package contains other built-in maps, including a US county map, a worl
 
 **Q:** If you look at the structure of the statesMap data frame using the str function, you should see that there are 6 variables. One of the variables, group, defines the different shapes or polygons on the map. Sometimes a state may have multiple groups, for example, if it includes islands. How many different groups are there? 
 
-```{r problem 1.1 Q 1}
+
+```r
 table(statesMap$group)
+```
+
+```
+## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 
+##  202  149  312  516   79   91   94   10  872  381  233  329  257  256  113 
+##   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30 
+##  397  650  399  566   36  220   30  460  370  373  382  315  238  208   70 
+##   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45 
+##  125  205   78   16  290   21  168   37  733   12  105  238  284  236  172 
+##   46   47   48   49   50   51   52   53   54   55   56   57   58   59   60 
+##   66  304  166  289 1088   59  129   96   15  623   17   17   19   44  448 
+##   61   62   63 
+##  373  388   68
+```
+
+```r
 length(table(statesMap$group))
 ```
+
+```
+## [1] 63
+```
+
 
 **ANS: ** 63
 
@@ -39,10 +76,14 @@ The variable "order" defines the order to connect the points within each group, 
 
 You can draw a map of the United States by typing the following in your R console:
 
-```{r problem 1.2 Q 2}
-ggplot(statesMap, aes(x=long, y=lat, group=group)) + geom_polygon(fill="white", color="black") + coord_map("mercator")
 
+```r
+ggplot(statesMap, aes(x = long, y = lat, group = group)) + geom_polygon(fill = "white", 
+    color = "black") + coord_map("mercator")
 ```
+
+![plot of chunk problem 1.2 Q 2](figure/problem_1_2_Q_2.png) 
+
 
 As we saw in lecture, we used the option coord_map. This sets the type of map projection. The option "mercator" just creates a flat projection. Other options include "orthographic" and "polyconic". To see all options, type ?mapproject in your R console.
 
@@ -65,38 +106,128 @@ Load the data using the read.csv function, and call it "polling". Then split the
 
 Note that we only have 45 states in our testing set, since we are missing observations for Alaska, Delaware, Alabama, Wyoming, and Vermont, so these states will not appear colored in our map. 
 
-```{r loading imputed dataset and splitting into test and train}
+
+```r
 
 polling = read.csv("PollingImputed.csv")
+```
+
+```
+## Warning: cannot open file 'PollingImputed.csv': No such file or directory
+```
+
+```
+## Error: cannot open the connection
+```
+
+```r
 str(polling)
+```
+
+```
+## Error: object 'polling' not found
+```
+
+```r
 Train = subset(polling, polling$Year <= 2008)
+```
+
+```
+## Error: object 'polling' not found
+```
+
+```r
 Test = subset(polling, polling$Year >= 2012)
 ```
 
+```
+## Error: object 'polling' not found
+```
+
+
 Then, create a logistic regression model and make predictions on the test set using the following commands:
 
-```{r logistic regression and predictions}
-mod2 = glm(Republican ~ SurveyUSA+DiffCount, data=Train, family="binomial")
-print(mod2)
-summary(mod2)
-TestPrediction = predict(mod2, newdata=Test, type="response")
+
+```r
+mod2 = glm(Republican ~ SurveyUSA + DiffCount, data = Train, family = "binomial")
+```
 
 ```
+## Error: object 'Train' not found
+```
+
+```r
+print(mod2)
+```
+
+```
+## Error: object 'mod2' not found
+```
+
+```r
+summary(mod2)
+```
+
+```
+## Error: object 'mod2' not found
+```
+
+```r
+TestPrediction = predict(mod2, newdata = Test, type = "response")
+```
+
+```
+## Error: object 'mod2' not found
+```
+
 
 TestPrediction gives the predicted probabilities for each state, but let's also create a vector of Republican/Democrat predictions by using the following command:
 
-```{r vector of Republican/Democrat predictions}
+
+```r
 TestPredictionBinary = as.numeric(TestPrediction > 0.5)
 ```
 
+```
+## Error: object 'TestPrediction' not found
+```
+
+
 Now, put the predictions and state labels in a data.frame so that we can use ggplot:
 
-```{r predictions and state labels in a data.frame}
+
+```r
 PredictionDataFrame = data.frame(TestPrediction, TestPredictionBinary, Test$State)
+```
+
+```
+## Error: object 'TestPrediction' not found
+```
+
+```r
 str(PredictionDataFrame)
+```
+
+```
+## Error: object 'PredictionDataFrame' not found
+```
+
+```r
 table(TestPredictionBinary)
+```
+
+```
+## Error: object 'TestPredictionBinary' not found
+```
+
+```r
 summary(TestPrediction)
 ```
+
+```
+## Error: object 'TestPrediction' not found
+```
+
 
 To make sure everything went smoothly, answer the following questions.
 
@@ -113,28 +244,83 @@ What is the average predicted probability of our model?
 
 Now, we need to merge "predictionDataFrame" with the map data "statesMap", Before doing so, we need to convert the Test.State variable to lowercase, so that it matches the region variable in statesMap. So we will create a new variable called "region" in the PredictionDataFrame to have lowercase State names. Do this by typing the following in your R console:
 
-```{r Test$State to lowere case}
+
+```r
 
 PredictionDataFrame$region = tolower(PredictionDataFrame$Test.State)
+```
+
+```
+## Error: object 'PredictionDataFrame' not found
+```
+
+```r
 str(PredictionDataFrame)
 ```
 
+```
+## Error: object 'PredictionDataFrame' not found
+```
+
+
 Now, merge the two data frames using the following command:
 
-```{r merge the map and prediction datasets}
 
-PredictionMap = merge(statesMap, PredictionDataFrame, by="region")
+```r
+
+PredictionMap = merge(statesMap, PredictionDataFrame, by = "region")
 ```
+
+```
+## Error: object 'PredictionDataFrame' not found
+```
+
 
 Lastly, we need to make sure the observations are in order (by the order variable), so that the map is drawn properly, by typing the following:
 
-```{r order the obs.}
 
-PredictionMap = PredictionMap[order(PredictionMap$order),]
+```r
+
+PredictionMap = PredictionMap[order(PredictionMap$order), ]
+```
+
+```
+## Error: object 'PredictionMap' not found
+```
+
+```r
 str(PredictionMap)
+```
+
+```
+## Error: object 'PredictionMap' not found
+```
+
+```r
 str(statesMap)
+```
+
+```
+## 'data.frame':	15537 obs. of  6 variables:
+##  $ long     : num  -87.5 -87.5 -87.5 -87.5 -87.6 ...
+##  $ lat      : num  30.4 30.4 30.4 30.3 30.3 ...
+##  $ group    : num  1 1 1 1 1 1 1 1 1 1 ...
+##  $ order    : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ region   : chr  "alabama" "alabama" "alabama" "alabama" ...
+##  $ subregion: chr  NA NA NA NA ...
+```
+
+```r
 merge
 ```
+
+```
+## function (x, y, ...) 
+## UseMethod("merge")
+## <bytecode: 0x000000000756afd8>
+## <environment: namespace:base>
+```
+
 **Q:** How many observations are there in predictionMap?
 
 **ANS:** 15034
@@ -157,11 +343,17 @@ When we merge data, it only merged the observations that exist in both data sets
 
 Now we are ready to color the US map with our predictions! You can color the states according to our binary predictions by typing the following in your R console:
 
-```{r color US map}
 
-ggplot(PredictionMap, aes(x=long, y=lat, group=group, fill= TestPredictionBinary)) + geom_polygon(color="black")
+```r
+
+ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPredictionBinary)) + 
+    geom_polygon(color = "black")
+```
 
 ```
+## Error: object 'PredictionMap' not found
+```
+
 
 **Q:** The states appear light blue and dark blue in this map. Which color represents a Republican prediction?
 
@@ -171,103 +363,38 @@ ggplot(PredictionMap, aes(x=long, y=lat, group=group, fill= TestPredictionBinary
 
 We see that the legend displays a blue gradient for outcomes between 0 and 1. However, in our model there are only two possible outcomes: 0 or 1. Let's replot the map with discrete outcomes. We can also change the color scheme to blue and red, to match the blue color associated with the Democratic Party in the US and the red color associated with the Republican Party in the US. This can be done with the following command:
 
-```{r display discrete 0 or 1}
 
-ggplot(PredictionMap, aes(x=long, y=lat, group=group, fill = TestPredictionBinary)) + geom_polygon(color="black") + scale_fill_gradient(low="blue", high="red", guide="legend", breaks=c(0,1), labels=c("Democrate", "Republican"), name="Prediction 2012")
+```r
+
+ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPredictionBinary)) + 
+    geom_polygon(color = "black") + scale_fill_gradient(low = "blue", high = "red", 
+    guide = "legend", breaks = c(0, 1), labels = c("Democrate", "Republican"), 
+    name = "Prediction 2012")
+```
 
 ```
+## Error: object 'PredictionMap' not found
+```
+
 
 Alternatively, we could plot the probabilities instead of the binary predictions. Change the plot command above to instead color the states by the variable TestPrediction. 
 
 
-```{r display discrete 0 or 1 by TestPrediction}
 
-ggplot(PredictionMap, aes(x=long, y=lat, group=group, fill = TestPrediction)) + geom_polygon(color="black") + scale_fill_gradient(low="blue", high="red", guide="legend",  name="Prediction 2012")
+```r
+
+ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPrediction)) + 
+    geom_polygon(color = "black") + scale_fill_gradient(low = "blue", high = "red", 
+    guide = "legend", name = "Prediction 2012")
+```
 
 ```
+## Error: object 'PredictionMap' not found
+```
+
 
 **Q:** How many states look purple in the map?
 
 **ANS:** 1
 
 ##  Problem 3.1 - Understanding the Predictions 
-
-**Q:** What does it mean when a state appears with a purple "in-between" color on the map?
-
-**ANS:** Our logistic regression classifier is not as confident in its prediction for this state 
-
-### Explanation
-
-Our logistic regression classifier did classify each state for which we have data. However, a state will only appear bright red if the logistic regression probability was close to 1, and will only appear bright blue if the logistic regression probability was close to 0. An in-between color signifies less confidence in the prediction. This is a good way to visualize uncertainty. Although Iowa, the state that appears purple here, was a hard state for us to predict, we don't know whether or not it was a close race in the 2012 election. The color only represents what our model thought.
-
-## Problem 3.2 - Understanding the Predictions
-
-**Q:** In the 2012 election, the state of Florida ended up being a very close race. It was ultimately won by the Democratic party. Did we predict this state correctly or incorrectly? To see the names and locations of the different states, take a look at the World Atlas map here: http://www.worldatlas.com/webimage/testmaps/usanames.htm
-
-**ANS:** We incorrectly predicted this state by predicting that it would be won by the Republican party. 
-
-### Explanation
-
-In our prediction map, the state of Florida is colored red, meaning that we predicted Republican. So we incorrectly predicted this state.
-
-##  Problem 3.3 - Understanding the Predictions 
-
-**Q:** What was our predicted probability for the state of Florida?
-
-```{r find the probability of Florida}
-str(PredictionDataFrame)
-PredictionDataFrame
-which(PredictionDataFrame$region == "florida")
-PredictionDataFrame[6,]
-?geom_polygon
-```
-
-**ANS:** 0.9640395
-
-We had probabilities in the PredictionDataFrame. So we found out the index of florida state which turned out to be 6 and then simply passed this row index to the PredictionDataFrame to get the Test Prediction.
-
-**Q:** What does this imply?
-
-**ANS:** Our prediction model did not do a very good job of correctly predicting the state of Florida, and we were very confident in our incorrect prediction. 
-
-### Explanation
-
-We predicted Republican for the state of Florida with high probability, meaning that we were very confident in our incorrect prediction! Historically, Florida is usually a close race, but our model doesn't know this. The model only uses polling results for the particular year. For Florida in 2012, Survey USA predicted a tie, but other polls predicted Republican, so our model predicted Republican. 
-
-## Problem 4 - Parameter Settings
-
-In this problem, we'll explore what the different parameter settings of geom_polygon do. Throughout the problem, use the help page for geom_polygon, which can be accessed by ?geom_polygon. To see more information about a certain parameter, just type a question mark and then the parameter name to get the help page for that parameter. Experiment with different parameter settings to try and replicate the plots!
-
-We'll be asking questions about the following three plots:
-
-```{r parameters of geom_polygon 1}
-?geom_polygon
-ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPrediction))+ geom_polygon(color = "black", linetype=3) + scale_fill_gradient(low = "blue", high = "red", guide = "legend", breaks= c(0,1), labels = c("Democrat", "Republican"), name = "Prediction 2012")
-
-```
-
-```{r parameters of geom_polygon 2}
-?geom_polygon
-ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPrediction))+ geom_polygon(color = "black", size=3) + scale_fill_gradient(low = "blue", high = "red", guide = "legend", breaks= c(0,1), labels = c("Democrat", "Republican"), name = "Prediction 2012")
-
-```
-Plots (1) and (2) were created by setting different parameters of geom_polygon to the value 3.
-
-**Q:** What is the name of the parameter we set to have value 3 to create plot (1)? 
-
-**ANS:** linetype
-
-**Q:** What is the name of the parameter we set to have value 3 to create plot (2)?
-
-**ANS**: size 
-
-**Q:** Plot (3) was created by changing the value of a different geom_polygon parameter to have value 0.3. Which parameter did we use?
-
-```{r parameters of geom_polygon 2}
-?geom_polygon
-ggplot(PredictionMap, aes(x = long, y = lat, group = group, fill = TestPrediction))+ geom_polygon(color = "black", alpha=0.3) + scale_fill_gradient(low = "blue", high = "red", guide = "legend", breaks= c(0,1), labels = c("Democrat", "Republican"), name = "Prediction 2012")
-
-```
-**ANS:** alpha
-
-The "alpha" parameter controls the transparency or darkness of the color. A smaller value of alpha will make the colors lighter.

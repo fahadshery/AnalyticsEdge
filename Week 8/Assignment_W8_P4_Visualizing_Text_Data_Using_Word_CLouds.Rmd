@@ -1,0 +1,326 @@
+Visualizing Text Data Using Word CLouds
+========================================================
+
+Earlier in the course, we used text analytics as a predictive tool, using word frequencies as independent variables in our models. However, sometimes our goal is to understand commonly occurring topics in text data instead of to predict the value of some dependent variable. In such cases, word clouds can be a visually appealing way to display the most frequent words in a body of text.
+
+A word cloud arranges the most common words in some text, using size to indicate the frequency of a word. 
+
+While we could generate word clouds using free generators available on the Internet, we will have more flexibility and control over the process if we do so in R. We will visualize the text of tweets about Apple, a dataset we used earlier in the course. this dataset has the following variables:
+
+- **Tweet** -- the text of the tweet
+
+- **Avg** -- the sentiment of the tweet, as assigned by users of Amazon Mechanical Turk. The score ranges on a scale from -2 to 2, where 2 means highly positive sentiment, -2 means highly negative sentiment, and 0 means neutral sentiment.
+
+Problem 1.1 - Preparing the Data
+
+Download the dataset "tweets.csv", and load it into a data frame called "tweets" using the read.csv() function, remembering to use stringsAsFactors=FALSE when loading the data.
+
+```{r}
+tweets = read.csv("tweets.csv", stringsAsFactors = FALSE)
+str(tweets)
+tweets$Tweet[1]
+strwrap(tweets$Tweet[1])
+tweets$Avg[1]
+```
+
+Next, perform the following pre-processing tasks (like we did in Week 5), noting that we don't stem the words in the document or remove sparse terms: 
+1. Create a corpus using the Tweet variable
+2. Convert the corpus to lowercase
+3. Remove punctuation from the corpus
+4. Remove all English-language stopwords
+5. Build a document-term matrix out of the corpus
+6. Convert the document-term matrix to a data frame called allTweets
+
+```{r pre-process dataset}
+library(plyr)
+library(tm)
+corpus = Corpus(VectorSource(tweets$Tweet))
+corpus #No. of documents (this should be equivalent to number of tweets in the dataset i.e. 1 document per tweet)
+strwrap(corpus[[1]]) #nothing has changed, we just have created a set of tweet documents
+corpus = tm_map(corpus, tolower)
+strwrap(corpus[[1]]) # changed to lower case
+corpus = tm_map(corpus, removePunctuation) # remove punctuation
+strwrap(corpus[[1]])
+corpus = tm_map(corpus, removeWords, stopwords("english")) #remove stop words
+strwrap(corpus[[1]])
+dtm = DocumentTermMatrix(corpus) #document-term matrix out of the corpus
+dtm
+allTweets = as.data.frame(as.matrix(dtm))
+str(allTweets)
+```
+**Q:** How many unique words are there across all the documents?
+
+**ANS:** 3780
+
+##  Problem 1.2 - Preparing the Data 
+
+Although we typically stem words during the text preprocessing step, we did not do so here. What is the most compelling rationale for skipping this step when visualizing text data?
+
+**ANS:** It will be easier to read and understand the word cloud if it includes full words instead of just the word stems 
+
+We want to create an interpretable display of a document's contents, and our results will be easier to read if they include full words instead of just the stems.
+
+Stemming has relatively minor computational burden, and we certainly could create a word cloud with a stemmed document. 
+
+## Problem 2.1 - Building a Word Cloud
+
+Install and load the "wordcloud" package, which is needed to build word clouds.
+
+```{r load library and install wordcloud package}
+install.packages("wordcloud")
+library(wordcloud)
+```
+
+As we can read from ?wordcloud, we will need to provide the function with a vector of words and a vector of word frequencies. Which function can we apply to allTweets to get a vector of the words in our dataset, which we'll pass as the first argument to wordcloud()?
+
+```{r function args of wordcloud}
+?wordcloud
+rownames(allTweets)
+colnames(allTweets)
+str(allTweets)
+```
+**ANS** colnames
+
+Each tweet represents a row of allTweets, and each word represents a column. We need the names of all the columns of allTweets, which is returned by colnames(allTweets). While str(allTweets) displays the names of the variables along with other information, it doesn't return a vector that we can use as the first argument to wordcloud(). 
+
+## Problem 2.2 - Building a Word Cloud
+
+**Q:** Which function should we apply to allTweets to obtain the frequency of each word across all tweets?
+
+```{r function args of wordcloud 2} 
+?wordcloud
+colSums(allTweets)
+rowSums(allTweets)
+sum(allTweets)
+```
+
+**ANS:** colSums(allTweets)
+
+Each tweet represents a row in allTweets, and each word represents a column. Therefore, we need to access the sums of each column in allTweets, which is returned by colSums(allTweets). 
+
+## Problem 2.3 - Building a Word Cloud
+
+Use allTweets to build a word cloud. Make sure to check out the help page for wordcloud if you are not sure how to do this.
+
+```{r wordcloud 1} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red")
+```
+
+Because we are plotting a large number of words, you might get warnings that some of the words could not be fit on the page and were therefore not plotted -- this is especially likely if you are using a smaller screen. You can address these warnings by plotting the words smaller. From ?wordcloud, we can see that the "scale" parameter controls the sizes of the plotted words. By default, the sizes range from 4 for the most frequent words to 0.5 for the least frequent, as denoted by the parameter "scale=c(4, 0.5)". We could obtain a much smaller plot with, for instance, parameter "scale=c(2, 0.25)".
+
+```{r wordcloud 2} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red", scale=c(2,0.25))
+```
+
+What is the most common word across all the tweets (it will be the largest in the outputted word cloud)? Please type the word exactly how you see it in the word cloud. The most frequent word might not be printed if you got a warning about words being cut off -- if this happened, be sure to follow the instructions in the paragraph above. 
+
+**ANS:** apple
+
+## Problem 2.4 - Building a Word Cloud
+
+In the previous subproblem, we noted that there is one word with a much higher frequency than the other words. Repeat the steps to load and pre-process the corpus, this time removing the most frequent word in addition to all elements of stopwords("english") in the call to tm_map with removeWords. For a refresher on how to remove this additional word, see the Twitter text analytics lecture.
+
+Replace allTweets with the document-term matrix of this new corpus -- we will use this updated corpus for the remainder of the assignment.
+
+Create a word cloud with the updated corpus. What is the most common word in this new corpus (the largest word in the outputted word cloud)? The most frequent word might not be printed if you got a warning about words being cut off -- if this happened, be sure to follow the instructions in the previous problem.
+
+```{r pre-process dataset again to remove the apple word}
+
+corpus = Corpus(VectorSource(tweets$Tweet))
+corpus #No. of documents (this should be equivalent to number of tweets in the dataset i.e. 1 document per tweet)
+strwrap(corpus[[1]]) #nothing has changed, we just have created a set of tweet documents
+corpus = tm_map(corpus, tolower)
+strwrap(corpus[[1]]) # changed to lower case
+corpus = tm_map(corpus, removePunctuation) # remove punctuation
+strwrap(corpus[[1]])
+corpus = tm_map(corpus, removeWords, stopwords("english"))
+strwrap(corpus[[1]])
+corpus = tm_map(corpus, removeWords, c("apple", stopwords("english"))) #remove stop words + apple
+strwrap(corpus[[1]])
+dtm = DocumentTermMatrix(corpus) #document-term matrix out of the corpus
+dtm
+allTweets = as.data.frame(as.matrix(dtm))
+str(allTweets)
+```
+
+```{r wordcloud 3} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red", scale=c(4,0.5))
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red", scale=c(2,0.25))
+```
+
+**ANS:** iphone
+
+## Problem 3 - Size and Color
+
+So far, the word clouds we've built have not been too visually appealing -- they are crowded by having too many words displayed, and they don't take advantage of color. One important step to building visually appealing visualizations is to experiment with the parameters available, which in this case can be viewed by typing ?wordcloud in your R console. In this problem, you should look through the help page and experiment with different parameters to answer the questions.
+
+Below are four word clouds, each of which uses different parameter settings in the call to the wordcloud() function:
+
+```{r wordcloud 4} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red", scale=c(4,0.5))
+wordcloud(colnames(allTweets), colSums(allTweets), scale=c(2,0.25))
+```
+
+## Problem 3.1 - Size and Color
+
+**Q:** Which word cloud is based only on the negative tweets (tweets with Avg value -1 or less)?
+
+**ANS**: Word Cloud C
+
+Explanation
+
+Word Cloud C is the only one with a different distribution of the most frequent words -- negative words (or censored versions of negative words) are much more common in this cloud.
+
+It is quite simple to obtain a word cloud that is limited to a subset of the tweets using the subset function:
+
+```{r negative tweets cloud}
+negativeTweets = subset(allTweets, tweets$Avg <= -1)
+wordcloud(colnames(negativeTweets), colSums(negativeTweets)) 
+
+```
+
+## Problem 3.2 - Size and Color
+
+Only one word cloud was created without modifying parameters min.freq or max.words. Which word cloud is this?
+
+```{r wordcloud 4 min.freq or max.word} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), colors="red")
+wordcloud(colnames(allTweets), colSums(allTweets), scale=c(2,0.25))
+```
+
+**ANS:** Word Cloud A 
+
+min.freq and max.words are parameters that can be used to remove the least frequent words, resulting is a less cluttered word cloud. Word Cloud A is much more cluttered than the others because it did not use either of these parameters, and therefore is displaying every word that appears more than 3 times. 
+
+##  Problem 3.3 - Size and Color 
+
+**Q:** Which word clouds were created with parameter random.order set to FALSE?
+
+```{r wordcloud 4 min.freq or max.word} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), random.order=FALSE)
+wordcloud(colnames(negativeTweets), colSums(negativeTweets), random.order=FALSE)
+wordcloud(colnames(allTweets), colSums(allTweets), scale=c(2,0.25))
+```
+
+**ANS** Word Cloud B, Word Cloud D
+
+If random.order is set to FALSE, then the most frequent (largest) words will be plotted first, resulting in them being displayed together in the center of the word cloud. This is the case in Word Cloud B and Word Cloud D. 
+
+##  Problem 3.4 - Size and Color 
+
+**Q:** Which word cloud was built with a non-default value for parameter rot.per?
+
+```{r wordcloud 4 min.freq or max.word} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), rot.per=.5)
+wordcloud(colnames(negativeTweets), colSums(negativeTweets), rot.per=.2)
+word
+```
+
+Explanation
+
+rot.per controls the proportion of words that are rotated to be vertical in the word cloud. By default 10% of words are rotated. However in Word Cloud A a much higher proportion (50%) are rotated, which was achieved by setting rot.per=0.5. 
+
+## Problem 3.5 - Size and Color
+
+In Word Cloud C and Word Cloud D, we provided a color palette ranging from light purple to dark purple as the parameter colors (you will learn how to make such a color palette later in this assignment). For which word cloud was the parameter ordered.colors set to TRUE?
+
+```{r wordcloud 4 min.freq or max.word} 
+?wordcloud
+wordcloud(colnames(allTweets), colSums(allTweets), rot.per=.5, ordered.colors=TRUE)
+wordcloud(colnames(negativeTweets), colSums(negativeTweets), color="red", ordered.colors=TRUE, scale=c(2,0.25))
+word
+```
+
+**ANS:** Word Cloud C 
+
+Explanation
+
+When ordered.colors is set to TRUE, the words will be colored by their frequencies. This is the case in Word Cloud C. Meanwhile, colors were assigned randomly (ordered.colors=FALSE) in Word Cloud D. 
+
+##  Problem 4.1 - Selecting a Color Palette 
+
+The use of a palette of colors can often improve the overall effect of a visualization. We can easily select our own colors when plotting; for instance, we could pass c("red", "green", "blue") as the colors parameter to wordcloud(). The RColorBrewer package, which is based on the ColorBrewer project (colorbrewer.org), provides pre-selected palettes that can lead to more visually appealing images. Though these palettes are designed specifically for coloring maps, we can also use them in our word clouds and other visualizations.
+
+Begin by installing and loading the "RColorBrewer" package. This package may have already been installed and loaded when you installed and loaded the "wordcloud" package, in which case you don't need to go through this additional installation step. If you obtain errors (for instance, "Error: lazy-load database 'P' is corrupt") after installing and loading the RColorBrewer package and running some of the commands, try closing and re-opening R.
+
+The function brewer.pal() returns color palettes from the ColorBrewer project when provided with appropriate parameters, and the function display.brewer.all() displays the palettes we can choose from.
+
+Which color palette would be most appropriate for use in a word cloud for which we want to use color to indicate word frequency?
+
+```{r load brewer color pallet} 
+install.packages("RColorBrewer")
+library(RColorBrewer)
+library(wordcloud)
+display.brewer.all()
+display.brewer.all()
+```
+
+**ANS:** YlOrRd 
+
+There are 3 types of palettes, sequential, diverging, and qualitative.
+
+1. Sequential palettes are suited to ordered data that progress from low to high. Lightness steps dominate the look of these schemes, with light colors for low data values to dark colors for high data values. 
+2. Diverging palettes put equal emphasis on mid-range critical values and extremes at both ends of the data range. The critical class or break in the middle of the legend is emphasized with light colors and low and high extremes are emphasized with dark colors that have contrasting hues. 
+3. Qualitative palettes do not imply magnitude differences between legend classes, and hues are used to create the primary visual differences between classes. Qualitative schemes are best suited to representing nominal or categorical data.
+
+The sequential palettes names are 
+Blues BuGn BuPu GnBu Greens Greys Oranges OrRd PuBu PuBuGn PuRd Purples RdPu Reds YlGn YlGnBu YlOrBr YlOrRd
+
+All the sequential palettes are available in variations from 3 different values up to 9 different values.
+
+The diverging palettes are 
+BrBG PiYG PRGn PuOr RdBu RdGy RdYlBu RdYlGn Spectral
+
+All the diverging palettes are available in variations from 3 different values up to 11 different values.
+
+For qualitative palettes, the lowest number of distinct values available always is 3, but the largest number is different for different palettes. It is given together with the palette names in the following table.
+
+Accent   8
+Dark2	 8
+Paired	 12
+Pastel1	 9
+Pastel2	 8
+Set1	 9
+Set2	 8
+Set3	 12
+
+
+##  Problem 4.2 - Selecting a Color Palette
+
+**Q:** Which RColorBrewer palette name would be most appropriate to use when preparing an image for a document that must be in grayscale?
+
+
+```{r load brewer grayscale pallet} 
+display.brewer.all()
+```
+
+**ANS:** As we can see from display.brewer.all(), palette "Greys" is the only one completely in grayscale. 
+
+##  Problem 4.3 - Selecting a Color Palette 
+
+In sequential palettes, sometimes there is an undesirably large contrast between the lightest and darkest colors. You can see this effect when plotting a word cloud for allText with parameter colors=brewer.pal(9, "Blues"), which returns a sequential blue palette with 9 colors.
+
+```{r wordcloud color palatte} 
+wordcloud(colnames(allTweets), colSums(allTweets), colors=brewer.pal(9, "Blues")[c(-1, -2, -3, -4)], rot.per=.5)
+wordcloud(colnames(allTweets), colSums(allTweets), colors=brewer.pal(9, "Blues")[c(5, 6, 7, 8, 9)], rot.per=.5)
+word
+```
+
+**ANS:** brewer.pal(9, "Blues")[c(-1, -2, -3, -4)] , brewer.pal(9, "Blues")[c(5, 6, 7, 8, 9)]
+
+Explanation
+
+The fourth option limits to elements 5-9, which removes the first four. The second option uses negative indexes, which means remove elements 1-4. The first and third options actually keep colors 1-4, discarding the rest.
+
+A shorthand for this indexing is:
+
+brewer.pal(9, "Blues")[-1:-4]
+
+brewer.pal(9, "Blues")[5:9] 
