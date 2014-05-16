@@ -1,0 +1,343 @@
+Forecasting Elantra Sales
+========================================================
+
+An important application of the predictive models studied in this course is to understanding sales. Consider a company that produces and sells a product. In a given period, if the company produces more units than how many consumers will buy, the company will not earn money on the unsold units and will incur additional costs due to having to store those units in inventory before they can be sold. If it produces fewer units than how many consumers will buy, the company will earn less than it potentially could have earned. Being able to predict consumer sales, therefore, is of first order importance to the company.
+
+In this problem, we will try to predict monthly sales of the Hyundai Elantra in the United States. The Hyundai Motor Company is a major automobile manufacturer based in South Korea. The Elantra is a car model that has been produced by Hyundai since 1990 and is sold all over the world, including the United States. We will build a simple model to predict monthly sales using economic indicators of the United States as well as Google search queries.
+
+
+
+The file elantra.csv contains data for the problem. Each observation is a month, from January 2010 to February 2014. For each month, we have the following variables:
+
++ **Month**: the month of the year for the observation (1 = January, 2 = February, 3 = March, ...).
++ **Year**: the year of the observation.
++ **ElantraSales**: the number of units of the Hyundai Elantra sold in the United States in the given month.
++ **Unemployment**: the estimated unemployment percentage in the United States in the given month.
++ **Queries**: a (normalized) approximation of the number of Google searches for "hyundai elantra" in the given month.
++ **CPI_energy**: the monthly consumer price index (CPI) for energy for the given month.
++ **CPI_all**: the consumer price index (CPI) for all products for the given month; this is a measure of the magnitude of the prices paid by consumer households for goods and services (e.g., food, clothing, electricity, etc.).
+
+##  Problem 1 - Loading the Data 
+
+Load the data set. Split the data set into training and testing sets as follows: place all observations for 2012 and earlier in the training set, and all observations for 2013 and 2014 into the testing set.
+
+How many observations are in the training set?
+
+```{r load data and split into training and testing sets}
+elantra = read.csv("elantra.csv")
+str(elantra)
+summary(elantra)
+train = subset(elantra, elantra$Year <= 2012)
+test = subset(elantra, elantra$Year >= 2013)
+nrow(train)
+```
+
+## Problem 2 - A Linear Regression Model
+
+Build a linear regression model to predict monthly Elantra sales using **Unemployment, CPI_all, CPI_energy and Queries**. Use all of the training set data to do this.
+
+What is the model R-squared? Note: In this problem, we will always be asking for the "Multiple R-Squared" of the model.
+
+```{r linear Regression Model}
+LinRegModel = lm(ElantraSales ~ Unemployment + CPI_energy + CPI_all + Queries, data=train)
+summary(LinRegModel)
+```
+
+We can see the Multiple R-squared to be:  0.4282 in the summary(LinRegModel)
+
+##  Problem 3 - Significant Variables
+
+Which variables are significant, or have levels that are significant? Use 0.10 as your p-value cutoff. You can select 0-4 of the variables here?
+
+**ANS**: none
+
+After obtaining the output of the model summary, simply look at the p-values of all of the variables in the output (the right-most column, labeled "Pr(>|t|)"). It turns out that none of them are significant.
+
+## Problem 4 - Coefficients
+
+What is the coefficient of the Unemployment variable?
+
+```{r Summary Regression Model}
+summary(LinRegModel)
+```
+
+This is the value under the left most column, labeled "Estimate", in the regression output (using the summary function) for Unemployment.
+
+
+## Problem 5 - Interpreting the Coefficient
+
+What is the interpretation of this coefficient?
+
+1. For an increase of 1 in predicted Elantra sales, Unemployment decreases by approximately 3000. 
+2. For an increase of 1 in Unemployment, the prediction of Elantra sales decreases by approximately 3000. 
+3. If Unemployment increases by 1, then Elantra sales will decrease by approximately 3000; Hyundai should keep unemployment down (by creating jobs in the US or lobbying the US government) if it wishes to increase its sales. 
+4. For an increase of 1 in Unemployment, then predicted Elantra sales will essentially stay the same, since the coefficient is not statistically significant. 
+
+**ANS:** 2
+
+**Explanation**
+
+The second choice is the correct answer; the coefficient is defined as the change in the prediction of the dependent variable (ElantraSales) per unit change in the independent variable in question (Unemployment). The first choice is therefore not correct; it also does not make intuitive sense since Unemployment is the percentage unemployment rate, which is bounded to be between 0 and 100.
+
+The third choice is not correct because the coefficient indicates how the prediction changes, not how the actual sales change, and this option asserts that actual sales change, i.e., there is a causal effect.
+
+The fourth choice is not correct because the statistical significance indicates how likely it is that, by chance, the true coefficient is not different from zero. However, the estimated coefficient still has a (non-zero) value, and our prediction will change for different values of Unemployment; therefore, the sales prediction cannot stay the same.
+
+
+## Problem 6 - Modeling Seasonality
+
+Our model R-Squared is relatively low, so we would now like to improve our model. In modeling demand and sales, it is often useful to model seasonality. Seasonality refers to the fact that demand is often cyclical/periodic in time. For example, in countries with different seasons, demand for warm outerwear (like jackets and coats) is higher in fall/autumn and winter (due to the colder weather) than in spring and summer. (In contrast, demand for swimsuits and sunscreen is higher in the summer than in the other seasons.) Another example is the "back to school" period in North America: demand for stationary (pencils, notebooks and so on) in late July and all of August is higher than the rest of the year due to the start of the school year in September.
+
+In our problem, since our data includes the month of the year in which the units were sold, it is feasible for us to incorporate monthly seasonality. From a modeling point of view, it may be reasonable that the month plays an effect in how many Elantra units are sold. 
+
+To incorporate the seasonal effect due to the month, build a new linear regression model that predicts monthly Elantra sales using *Month* as well as *Unemployment, CPI_all, CPI_energy and Queries*. Do not modify the training and testing data frames before building the model.
+
+Use the lm function to build the model again, this time with Month included as an independent variable. You can find the R-squared by looking at the summary output. 
+
+```{r linear Regression Model with seasonality}
+LinRegModel2 = lm(ElantraSales ~ Month + Unemployment + CPI_energy + CPI_all + Queries, data=train)
+summary(LinRegModel2)
+```
+
+What is the model R-Squared?
+
+**ANS**: 0.4344
+
+## Problem 7 - Effect of Adding a New Variable
+
+Which of the following best describes the effect of adding Month?
+
+1. The model is better because the R-squared has increased. 
+2. The model is not better because the adjusted R-squared has gone down and none of the variables (including the new one) are very significant. 
+3. The model is better because the p-values of the four previous variables have decreased (they have become more significant). 
+4. The model is not better because it has more variables.
+
+**ANS**: 2
+
+**Explanation**
+
+The first option is incorrect because (ordinary) R-Squared always increases (or at least stays the same) when you add new variables. This does not make the model better, and in fact, may hurt the ability of the model to generalize to new, unseen data (overfitting).
+
+The second option is correct: the adjusted R-Squared is the R-Squared but adjusted to take into account the number of variables. If the adjusted R-Squared is lower, then this indicates that our model is not better and in fact may be worse. Furthermore, if none of the variables have become significant, then this also indicates that the model is not better. 
+
+The third option is not correct because as stated above, the adjusted R-Squared has become worse. Although the variables have come closer to being significant, this doesn't make it a better model.
+
+The fourth option is not correct. Although it is desirable to have models that are parsimonious (fewer variables), we are ultimately interested in models that have high explanatory power (as measured in training R-Squared) and out of sample predictive power (as measured in testing R-Squared). Adding a key variable may significantly improve the predictive power of the model, and we should thus not dismiss the model simply because it has more variables.
+
+##  Problem 8 - Understanding the Model
+
+
+Let us try to understand our model. 
+
+In the new model, given two monthly periods that are otherwise identical in *Unemployment, CPI_all, CPI_energy and Queries*, what is the absolute difference in predicted Elantra sales given that one period is in January and one is in March?
+
+**ANS**:
+
+The coefficient for Month is 110.69 (look at the summary output of the model). January is coded numerically as 1, while March is coded numerically as 3; the difference in the prediction is therefore:
+
+```{r difference in predictions between Jan and March}
+
+110.69 * (3-1)
+```
+
+Therefore the answer is 221.38
+
+In the new model, given two monthly periods that are otherwise identical in Unemployment, CPI_all, CPI_energy and Queries, what is the absolute difference in predicted Elantra sales given that one period is in January and one is in May?
+
+**ANS**:
+
+May is numerically coded as 5, while January is 1, so the difference in predicted sales is:
+
+```{r difference in predictions between Jan and May}
+
+110.69 * (5-1)
+```
+
+Therefore the answer is 442.76
+
+## Problem 9 - Numeric vs. Factors
+
+You may be experiencing an uneasy feeling that there is something not quite right in how we have modeled the effect of the calendar month on the monthly sales of Elantras. If so, you are right. In particular, we added Month as a variable, but Month is an ordinary numeric variable. In fact, we must convert Month to a factor variable before adding it to the model.
+
+What is the best explanation for why we must do this?
+
+1. By converting Month to a factor variable, we will effectively increase the number of coefficients we need to estimate, which will boost our model's R-Squared. 
+2. By modeling Month as a factor variable, the effect of each calendar month is not restricted to be linear in the numerical coding of the month (as demonstrated in Problem 8). By modeling Month as a factor variable, the effect of each calendar month is not restricted to be linear in the numerical coding of the month (as demonstrated in Problem 8). 
+3. Within the data frame, Month is stored in R's Date format, causing errors in how the coefficient is estimated. 
+
+**ANS**: 2
+
+**EXPLANATION**
+
+The second choice is the correct answer. Problem 8 essentially showed that for every month that we move into the future (e.g, from January to February, from February to March, etc.), our predicted sales go up by 110.69. This isn't right, because the effect of the month should not be affected by the numerical coding, and by modeling Month as a numeric variable, we cannot capture more complex effects. For example, suppose that when the other variables are fixed, an additional 500 units are sold from June to December, relative to the other months. This type of relationship between the boost to the sales and the Month variable would look like a step function at Month = 6, which cannot be modeled as a linear function of Month.
+
+The first choice is not right. As we have discussed before, increasing the number of coefficients will never cause the model's R-Squared to decrease, but if the increase is small, then we have not really improved the predictive power of our model, and converting Month to a factor variable is not justified.
+
+The third choice is also not correct. Month is stored as an ordinary number, so there cannot be any issues due to the Date format.
+
+##  Problem 10 - A New Model 
+
+Re-run the regression with the Month variable modeled as a factor variable. (Create a new variable that models the Month as a factor instead of overwriting the current Month variable. We'll still use the numeric version of Month later in the problem.)
+
+```{r new Linear Model with month as a factor}
+train$MonthFactor = as.factor(train$Month)
+str(train)
+LinRegModel3 = lm(ElantraSales ~ MonthFactor + Unemployment + CPI_energy + CPI_all + Queries, data=train)
+summary(LinRegModel3)
+```
+
+## Problem 11 - Significant Variables
+
+Which variables are significant, or have levels that are significant? Use 0.10 as your p-value cutoff.
+
+1. *Month* (the factor version) 
+2. *CPI_all CPI*
+3._ *energy*
+4. *Unemployment*
+5. *Queries*
+
+**ANS**: Run the summary output of your model and look at the stars/periods on the right. All variables apart from Quries have become significant
+
+## Problem 12 - Factor Variables in Regression Models
+
+There are only 11 coefficients provided in the output of the regression model for the Month variable when intuitively there should be 12 (corresponding to the 12 months of the year). In particular, the coefficient for Month = 1 is missing. Why is this?
+
+1. The coefficient for Month = 1 was insignificant and removed. 
+2. There were no observations in the training set with Month = 1. 
+3. The effect of Month = 1 is captured in the intercept.
+
+**ANS**: 3
+
+**Explanation**
+
+The first choice is not correct; R will never automatically remove insignificant variables for you when running lm().
+
+The second choice is not correct; running summary(salestrain$Month) or table(salestrain$Month) will verify that this is not correct.
+
+The third choice is correct. A factor variable with N levels is modeled by introducing N - 1 "dummy" variables, for levels i = 2, ..., N. The ith dummy variable is 1 if and only if the variable is at level i. When all N - 1 dummy variables are zero, then factor variable must be at level 1. The effect of level 1 is therefore captured in the intercept.
+
+## Problem 13 - Multicolinearity
+
+Another peculiar observation about the regression is that the sign of the Queries variable has changed. In particular, when we naively modeled Month as a numeric variable, Queries had a positive coefficient. Now, Queries has a negative coefficient. Furthermore, CPI_energy has a positive coefficient -- as the overall price of energy increases, we expect Elantra sales to increase, which seems counter-intuitive (if the price of energy increases, we'd expect consumers to have less funds to purchase automobiles, leading to lower Elantra sales).
+
+As we have seen before, changes in coefficient signs and signs that are counter to our intuition may be due to a multicolinearity problem. To check, compute the correlations of the variables in the training set.
+
+Which of the following variables is CPI_energy highly correlated with? (Include only variables where the absolute value of the correlation exceeds 0.6. For the purpose of this question, treat Month as a numeric variable, not a factor variable.)
+
+1. Month 
+2. Unemployment
+3. Queries
+4. CPI_all 
+
+```{r calculating correlations}
+train$MonthFactor = NULL
+cor(train)
+```
+
+**Explanation**
+
+Assuming the training dataset contains all the variables with Month as a numeric variable, use the cor function to compute the correlations. (Correlations are -0.80071881 (Unemployment), 0.8328381 (Queries) and 0.91322591 (CPI_all).)
+
+## Problem 14 - Correlations
+
+Which of the following variables is Queries highly correlated with? Again, compute the correlations on the training set. (Include only variables where the absolute value of the correlation exceeds 0.6. For the purpose of this question, treat Month as a numeric variable, not a factor variable.)
+
+1. Month 
+2. Unemployment
+3. CPI_energy
+4. CPI_all
+
+**Explanation**
+
+Use the cor function to find the correlations. (Or look at the correlations table created above)
+
+Based on these results, we can see that CPI_energy and Queries are (somewhat surprisingly) highly correlated with each other; as a result, the sign change is likely to be due to multicolinearity.
+
+## Problem 15 - A Reduced Model
+
+Let us now simplify our model (the model using the factor version of the Month variable). We will do this by iteratively removing variables, one at a time. Remove the variable with the highest p-value (i.e., the least statistically significant variable) from the model. Repeat this until there are no variables that are insignificant or variables for which all of the factor levels are insignificant. Use a threshold of 0.10 to determine whether a variable is significant. 
+
+Which variables, and in what order, are removed by this process?
+
+1. CPI_energy, then Queries 
+2. Queries
+3. Queries, then CPI_energy 
+4. Queries, then CPI_energy, then CPI_all
+
+```{r new Linear Model with month as a factor again}
+train$MonthFactor = as.factor(train$Month)
+str(train)
+summary(LinRegModel3)
+LinRegModel4 = lm(ElantraSales ~ MonthFactor + Unemployment + CPI_energy + CPI_all , data=train)
+summary(LinRegModel4)
+```
+
+**Explanation**
+
+The variable with the highest p-value is "Queries". After removing it and looking at the model summary again, we can see that there are no variables that are insignificant, at the 0.10 p-level. Note that Month has a few values that are insignificant, but we don't want to remove it because many values are very significant.
+
+## Problem 16 - Test Set Predictions
+
+Using the model from Problem 15, make predictions on the test set. What is the sum of squared errors of the model on the test set?
+
+```{r predictions}
+test$MonthFactor = as.factor(test$Month)
+LinRegModel4Pred = predict(LinRegModel4 , newdata=test)
+SSE = sum((LinRegModel4Pred - test$ElantraSales)^2)
+```
+
+**Explanation**
+
+First, obtain predictions on the test set by using the predict function. Then compute the SSE by taking the sum of the squared differences between the ElantraSales variable in the test set and the output of the predictions.
+
+## Problem 17 - Comparing to a Baseline
+
+What would the baseline method predict for all observations in the test set? Remember that the baseline method we use predicts the average outcome of all observations in the training set.
+
+```{r baseline model}
+
+baseline = mean(train$ElantraSales)
+```
+
+**Explanation**
+
+The baseline method that is used in the R-Squared calculation (to compute SST, the total sum of squares) simply predicts the mean of ElantraSales in the training set for every observation (i.e., without regard to any of the independent variables).
+
+##  Problem 18 - Test Set R-Squared
+
+What is the test set R-Squared?
+
+```{r R2}
+SSE = sum((LinRegModel4Pred - test$ElantraSales)^2)
+SST = sum((mean(train$ElantraSales) - test$ElantraSales)^2)
+R2 = 1 - SSE/SST
+```
+
+**Explanation**
+
+You can compute the SST as the sum of the squared differences between ElantraSales in the testing set and the mean of ElantraSales in the training set. Then, using SSE from Problem 16, compute R-squared as 1 minus the SSE divided by the SST.
+
+## Problem 19 - Absolute Errors
+
+What is the largest absolute error that we make in our test set predictions?
+
+```{r absolute errors}
+max(abs(LinRegModel4$residuals))
+max(LinRegModel4Pred)
+```
+
+Unable to answer this!!
+
+**Explanation**
+
+You can get this answer by using the max function and the abs function.
+
+##  Problem 20 - Month of Largest Error 
+
+In which period (Month,Year pair) do we make the largest absolute error in our prediction?
+
+Unable to answer this as well!!!
+
+**Explanation**
+
+You can use the which.max and the abs functions to answer this question. 
