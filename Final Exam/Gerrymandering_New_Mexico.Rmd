@@ -1,0 +1,24 @@
+Gerrymandering New Mexico
+=========================
+In the United States, each state is divided into small regions called districts. In every even-numbered year, the citizens who reside in each district can vote in an election to determine the representative of that district. The representative is a member of the House of Representatives, which is one of the two chambers of the Congress of the United States. Representatives hold great power, as they can propose and vote on bills that later can become laws. 
+
+Each representative typically is affiliated with one of the two major political parties in the United States: the Democratic Party or the Republican Party. Each party naturally wants to ensure that they have as many representatives in Congress as possible. One way of achieving this is through gerrymandering.
+
+Gerrymandering refers to the process of redrawing district boundaries so as to favor a particular political party. To illustrate this, suppose we have the hypothetical state below, with three districts. Each district is further subdivided along a grid into smaller subregions, where each subregion votes unanimously for either party. Suppose that in this hypothetical example, there is only one voter in each subregion.
+
+Based on the current district boundaries, the blue party has a majority in each district, so each district elects a blue representative. However, suppose we decide to redraw the boundaries in the following way:
+
+Now the blue party does not win in every district; in fact, the red party wins two of the three districts. 
+
+In this problem, we will be exploring how to systematically manipulate these kinds of boundaries. We will be doing this specifically for the state of New Mexico, which is one of the fifty states of the United States.
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r fig.width=7, fig.height=6}
+plot(cars)
+```
+

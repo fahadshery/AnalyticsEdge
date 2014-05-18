@@ -1,0 +1,511 @@
+Predicting the Popularity of News Stories
+==========================================
+
+Newspapers and online news aggregators like Google News need to prioritize news stories to determine which will be the most popular. In this problem, you will predict the popularity of a set of New York Times articles containing the words "Google", "Microsoft", or "Yahoo" from the time period May 2012-December 2013. The dependent variable in this problem is the variable popular, which labels if an article had 100 or more comments in its online comment section. The independent variables consist of a number of pieces of article metadata available at the time of publication:
+
+
++ **print**: 1 if an article appeared in the print edition, 0 if only online
++ **type**: the type of the article, either "Blog," "News," or "Other"
++ **snippet**: a text snippet from the article
++ **headline**: the text headline of the article
++ **word.count**: the number of words in the article
+
+## Problem 1 - Loading the Dataset
+
+Load nytimes.csv into a data frame called articles, using the stringsAsFactors=FALSE option.
+
+What proportion of articles had at least 100 comments?
+
+```{r load data}
+news = read.csv("nytimes.csv", stringsAsFactors=FALSE)
+str(news)
+summary(news)
+table(news$popular)
+prop.table(table(news$popular))
+105/nrow(news)
+```
+**ANS**: 0.1079137
+
+**Explanation**
+
+If you use the table function, you can see that 105 of the 973 articles had the popular variable set to 1, for a proportion of 105/973=0.1079137
+OR you can use the prop.table command to give you proportions of either popular or non popular articles
+
+## Problem 2 - Computing a Correlation
+
+What is the correlation between the number of characters in an article's headline and whether the popular flag is set?
+
+```{r corr b/w no. of headline chars and popularity}
+#create a variable in news data to hold number of chars for each headline
+for(i in 1:973){
+        news$headline.word.count[i] <- nchar(news$headline[i])
+        }
+cor(news$popular, news$headline.word.count)
+```
+
+**ANS**: -0.1126912
+
+## Problem 3 - Converting Variables to Factors
+
+Convert the "popular" and "type" variables to be factor variables with the as.factor() function.
+
+```{r convert to factors}
+news$popular = as.factor(news$popular)
+news$type = as.factor(news$type)
+str(news)
+```
+
+Which of the following methods requires the dependent variable be stored as a factor variable when training a model for classification?
+
+1. Logistic regression (glm) 
+2. CART (rpart) 
+3. Random forest (randomForest) 
+
+**ANS**: 3 (We convert the outcome variable to a factor for the randomForest() method.)
+
+## Problem 4 - Splitting into a Training and Testing Set
+
+Set the random seed to 144 and then obtain a 70/30 training/testing split using the sample.split() function from the caTools package. Store the split variable in a variable called "spl", which we will use later on. Split articles into a training data frame called "train" and a testing data frame called "test".
+
+```{r training and testing sets}
+set.seed(144)
+library(caTools)
+spl = sample.split(news$popular, SplitRatio=0.7)
+train = subset(news,spl==TRUE)
+test = subset(news,spl == FALSE)
+```
+
+Why do we use the sample.split() function to split into a training and testing set?
+
+1. It is the most convenient way to randomly split the data 
+2. It balances the independent variables between the training and testing sets 
+3. It balances the dependent variable between the training and testing sets 
+
+**ANS**: 3
+
+##  Problem 5 - Training a Logistic Regression Model
+
+Train a logistic regression model (using the train data frame) to predict the "popular" outcome, using variables "print", "type", and "word.count".
+
+Which of the following coefficients are significant at the p=0.05 level (at least one star)?
+
+```{r Logistic Regression Model}
+LogModel = glm(popular ~ print + type + word.count, data=train, family=binomial)
+summary(LogModel)
+```
+
+Which of the following coefficients are significant at the p=0.05 level (at least one star)?
+
+1. print 
+2. typeNews 
+3. word.count
+4. typeOther
+
+**ANS**: 1, 2, 3
+
+##  Problem 6 - Predicting Using a Logistic Regression Model
+
+Consider an article that was printed in the newspaper (print = 1) with type = "News" and a total word count of 682. What is the predicted probability of this observation being popular, according to this model?
+
+```{r model q}
+#intercept + print estimate*1 + typeNews estimate*1 + 682*word.count estimate
+-2.5075573 -0.8468333 * 1 + 0.9055929*1 + 682*0.0002600
+#feed the answer to the logistic response function to get the predicted probability of this obs.
+exp(-2.271478)/(1 + exp(-2.271478))
+```
+
+**ANS**: 0.09351285
+
+**Explanation**
+
+This observation has print=1, typeNews=1, typeOther=0, and word.count=682, so it has a logistic function parameter of -2.5075573-0.8468333+0.9055929+682*0.0002600 = -2.271478. Then you need to plug this into the logistic response function to get the predicted probability. 
+
+##  Problem 7 - Interpreting Model Coefficients
+
+What is the meaning of the coefficient on the print variable in the logistic regression model?
+
+1. Articles from the print section of the newspaper are predicted to have 42.9% lower odds of being popular than other articles. 
+2. Articles from the print section of the newspaper are predicted to have 57.1% lower odds of being popular than other articles. 
+3. Articles from the print section of the newspaper are predicted to have 84.7% lower odds of being popular than other articles. 
+4. Articles from the print section of the newspaper are predicted to have 42.9% lower odds of being popular than an otherwise identical article not from the print section. 
+5. Articles from the print section of the newspaper are predicted to have 57.1% lower odds of being popular than an otherwise identical article not from the print section. 
+6. Articles from the print section of the newspaper are predicted to have 84.7% lower odds of being popular than an otherwise identical article not from the print section. 
+
+**ANS**: 5
+
+Explanation
+
+The coefficients of the model are the log odds associated with that variable; so we see that the odds of being popular are exp(-0.8468333)=0.4287706 those of an otherwise identical non-print article. This means the print article is predicted to have 57.1% lower odds of being popular. 
+
+##  Problem 8 - Obtaining Test Set Predictions 
+
+Obtain test-set predictions for your logistic regression model. Using a probability threshold of 0.5, on how many observations does the logistic regression make a different prediction than the naive baseline model? Remember that the naive baseline model always predicts the most frequent outcome in the training set. 
+
+```{r test predictions}
+LogRegPred = predict(LogModel, newdata=test, type="response")
+table(test$popular, LogRegPred >= 0.5)
+summary(LogRegPred)
+#baseline model
+table(test$popular)
+260/nrow(test)
+```
+
+**ANS**: 0
+
+**Explanation**
+
+We can obtain test-set predictions using the predict function. If you then summarize your predictions, you can see that the maximum predicted probability of being popular is 0.488, so no observations will be labeled as popular using a threshold of 0.5. As a result, the logistic regression predictions exactly coincide with the predictions of the naive baseline model. which is proven from calculating the baseline predictions above
+
+##  Problem 9 - Computing Test Set AUC 
+
+What is the test-set AUC of the logistic regression model?
+
+```{r test set AUC}
+
+library(ROCR)
+#using prediction function of the ROCR package. This function takes two arguments. The first is the predictions we made with our model, which we called LogRegPred. The second argument is the true outcomes of our data points, which in our case, is test$popular.
+
+pred = prediction(LogRegPred, test$popular)
+
+as.numeric(performance(pred, "auc")@y.values)
+
+```
+
+**ANS**: 0.7853598
+
+##  Problem 10 - Computing Test Set AUC 
+
+What is the meaning of the AUC?
+
+1. The proportion of the time the model can differentiate between a randomly selected popular and a randomly selected non-popular article 
+2. The proportion of the time the model correctly identifies whether or not an article is popular 
+3. The relative strength of the model compared to the naive baseline model
+
+**ANS**: 1
+
+## Problem 11 - ROC Curves
+
+Which cutoffs (or thresholds) are plotted on an ROC curve for a logistic regression model?
+
+1. No cutoffs 
+2. Only the cutoff 0.5
+3. Only the cutoff yielding the maximum training set accuracy 
+4. Only the cutoff yielding the maximum testing set accuracy 
+5. All cutoffs between 0 and 1 
+
+**ANS**: 5
+
+**Explanation**
+
+The ROC curve plots the true and false positive rates for all cutoffs between 0 and 1. 
+
+##  Problem 12 - Reading ROC Curves 
+
+Plot the colorized ROC curve for the logistic regression model.
+
+At roughly which logistic regression cutoff does the model achieve a true positive rate of 0.39 and a false positive rate of 0.04?
+
+Picking a good threshold value is often challenging. A Receiver Operator Characteristic (ROC) curve, can help you decide which value of the threshold is best. We can plot this ROC curve in R by plotting the sensitivity, or true positive rate of the model, on the y-axis. And the false positive rate, or 1 minus the specificity, on the x-axis.
+The ROC curve line shows how these two outcome measures vary with different threshold values.
+
+```{r roc curve}
+library(ROCR)
+#already calculated the ROCR prediction and stored in pred variable as shown above. Now, we need to use the performance function of ROCR package. This defines what we'd like to plot on the x and y-axes of our ROC curve. 
+
+#This performance function takes as arguments the output of the prediction function,
+#and then what we want on the x and y-axes. In this case, it's true positive rate,
+#or "tpr", and false positive rate, or "fpr".
+ROCRperf = performance(pred, "tpr", "fpr")
+# Plot ROC curve
+plot(ROCRperf,colorize=TRUE,  print.cutoffs.at=seq(0,1,by=0.09), text.adj=c(-0.2,1.7))
+```
+
+The ROC curve always starts at the point (0, 0). This corresponds to a threshold value of 1. i.e. t=1
+This means that If you have a threshold of 1, you will not catch popular articles, or have a 
+sensitivity of 0 but you will correctly label of all the non popular articles, meaning you have a false 
+positive rate of 0.
+
+The ROC curve always ends at the point (1,1), which corresponds to a threshold value of 0.
+If you have a threshold of 0, you'll catch all of the popular articles correctly, or have a sensitivity of 1, but you'll label all of the non-popular cases as popular cases too, meaning you have a false positive rate of 1.
+The threshold decreases as you move from (0,0) or t=1 to (1,1) or t=0.
+
+**ANS**: 0.22
+
+**Explanation**
+
+You can plot the colorized curve by using the plot function, and adding the argument colorize=TRUE.
+
+From the colorized curve, we can see that the green color, corresponding to cutoff 0.22, is associated with a true positive rate of 0.39 and false positive rate of 0.04. 
+
+##  Problem 13 - Cross-Validation to Select Parameters 
+
+Which of the following best describes how 10-fold cross-validation works when selecting between 3 different parameter values?
+
+1. 3 models are trained on subsets of the training set and evaluated on a portion of the training set
+2. 10 models are trained on subsets of the training set and evaluated on a portion of the training set
+3. 30 models are trained on subsets of the training set and evaluated on a portion of the training set 
+4. 3 models are trained on subsets of the training set and evaluated on the testing set 
+5. 10 models are trained on subsets of the training set and evaluated on the testing set 
+6. 30 models are trained on subsets of the training set and evaluated on the testing set
+
+**ANS**: 3
+
+**Explanation**
+
+In 10-fold cross validation, the model with each parameter setting will be trained on 10 90% subsets of the training set. Hence, a total of 30 models will be trained. The models are evaluated in each case on the last 10% of the training set (not on the testing set). 
+
+## Problem 14 - Cross-Validation for a CART Model
+
+Set the random seed to 144 (even though you have already done so earlier in the problem). Then use the caret package and the train function to perform 10-fold cross validation with the data set train, to select the best cp value for a CART model that predicts the dependent variable using "print", "type", and "word.count". Select the cp value from a grid consisting of the 50 values 0.01, 0.02, ..., 0.5.
+
+How many of the 50 parameter values achieve the maximum cross-validation accuracy?
+
+```{r cart model with CV method}
+set.seed(144)
+library(caret)
+library(e1071)
+library(rpart)
+#Set up the controls using (10-fold cross-validation) with cp varying over the range 0.01 to 0.50 in increments of 0.01. Use the train function to determine the best cp value. 
+tree.control = trainControl(method="cv", number=10)
+
+#Now we need to tell caret which range of CP parameters to try out. Now remember that CP varies between
+#0 and 1. It's likely for any given problem that we don't need to explore the whole range.
+#we are going to pick a very small cp value by making a grid of CP Values to try out. It will be over
+#the range of 0 to 0.50. 1 times 0.01 is obviously 0.01. And 50 times 0.01 is obviously 0.50.
+#0:50, means the numbers 0, 1, 2, 3, 4 5, 6, 7, 8, 9, 10...50
+cp.grid = expand.grid(.cp = seq(0.01, 0.5, 0.01) )
+
+#ANG1=Dependent and independent variables, ARG2=data for training, ARG3=we're using trees, ARG4=our train control we just made above, ARG5=tunegroup we just made
+tr= train(popular ~ print + type + word.count , data=train, method="rpart", trControl=tree.control, tuneGrid=cp.grid)
+
+##And what its doing there is it's trying all the different values of CP that we asked it to.
+#to check whats its done recall the value just stored in the tr variable:
+
+tr
+```
+
+**ANS**: 50
+
+**Explanation**
+
+The cross-validation can be run by first setting the grid of cp values with the expand.grid function and setting the number of folds with the trainControl function. Then you want to use the train function to run the cross-validation.
+
+From the output of the train function, all 50 parameters yielded the exact same accuracy. 
+
+## Problem 15 - Train CART model
+
+Build and plot the CART model trained with cp=0.01. How many variables are used as splits in this tree?
+
+```{r CART Model with cp=0.01}
+library(rpart)
+library(rpart.plot)
+#ARG1=Dependent ~ independent variables, data=training set, method=class for classification problem, enter the value we found through cross-validation
+popular.Tree.CP = rpart(popular ~ print + type + word.count ,method="class", data=train, control=rpart.control(cp=0.01))
+
+#plot the tree
+prp(popular.Tree.CP)
+
+```
+
+**ANS**: 0
+
+**Explanation**
+
+The CART model can be trained and plotted by first loading the "rpart" and "rpart.plot" packages, and then using the rpart function to build the model and the prp function to plot the tree.
+
+It turns out that there is no tree plotted, because there are no splits. 
+
+## Problem 16 - Building a Corpus from Article Snippets
+
+In the last part of this problem, we will determine if text analytics can be used to improve the quality of predictions of which articles will be popular.
+
+Build a corpus called "corpus" using the snippet variable from the full data frame "news". Using the tm_map() function, perform the following pre-processing steps on the corpus:
+
+1) Convert all words to lowercase
+
+2) Remove punctuation
+
+3) Remove English stop words. As in the Text Analytics week, if you have a non-standard set of English-language stop words, please load the stopwords stored in stopwords.txt and use variable sw instead of stopwords("english") when removing the stopwords.
+
+4) Stem the document
+
+Build a document-term matrix called "dtm" from the preprocessed corpus. How many unique word stems are in dtm?
+
+```{r building the corpus}
+#load the library
+library(tm)
+
+#Step 1- create corpus
+corpus = Corpus(VectorSource(news$snippet))
+rm(corpusTitle)
+
+#lets look at the number of documents it created
+corpus
+
+#Now we can see the first document of snippets by using double square brakets
+
+corpus[[1]]
+
+#Convert corpus to lowercase.
+corpus = tm_map(corpus, tolower)
+
+corpus[[1]]
+
+#Remove the punctuation in corpus.
+corpus = tm_map(corpus, removePunctuation)
+corpus[[1]]
+
+#Remove the English language stop words from corpus.
+corpus = tm_map(corpus, removeWords, stopwords("english"))
+corpus[[1]]
+
+#Stem the words in corpus
+corpus = tm_map(corpus, stemDocument)
+corpus[[1]]
+
+#Build a document term matrix called dtm from preprocessed corpus
+dtm = DocumentTermMatrix(corpus)
+
+dtm
+```
+
+**ANS**: 3926
+
+**Explanation**
+
+To build a corpus, you want to use the Corpus and VectorSource functions.
+
+You can convert all words to lowercase by using "tolower" as the second argument to the tm_map function.
+
+You can remove punctuation by using "removePunctuation" as the second argument to the tm_map function.
+
+You can remove English stop words by using "removeWords" as the second argument to the tm_map function, and adding stopwords("english") as a third argument.
+
+You can stem the documents by using "stemDocument" as the second argument to the tm_map function.
+
+Lastly, you can build a document-term matrix called dtm with the DocumentTermMatrix function, and you can output the number of words by just typing dtm in your console. 
+
+##  Problem 17 - Removing Sparse Terms 
+
+Remove all terms that don't appear in at least 5% of documents in the corpus, storing the result in a new document term matrix called spdtm.
+
+How many unique terms are in spdtm?
+
+```{r removing sparse terms}
+#Limit dtm to terms with sparseness of at most 95% (aka terms that appear in at least 5% of documents).
+
+spdtm = removeSparseTerms(dtm, 0.95)
+
+spdtm
+```
+
+**ANS**: 17
+
+**Explanation**
+
+This can be accomplished with the removeSparseTerms function.
+
+##  Problem 18 - Evaluating Word Frequencies in a Corpus 
+
+Convert spdtm to a data frame called articleText. Which word stem appears the most frequently across all snippets?
+
+```{r corpus dataframe}
+articleText = as.data.frame(as.matrix(spdtm))
+summary(articleText)
+sort(colSums(articleText))
+
+```
+
+**ANS**: compani
+
+**Explanation**
+
+articleText can be obtained by using as.data.frame, run on as.matrix, run on spdtm.
+
+From using the summary function or the colSums function, we can see that the word stem compani has the highest average frequency, meaning it appears the most frequently across all snippets. 
+
+## Problem 19 - Adding Data from Original Data Frame
+
+Copy the following variables from the articles data frame into articleText:
+
+1) print
+
+2) type
+
+3) word.count
+
+4) popular
+
+Then, split articleText into a training set called trainText and a testing set called testText using the variable "spl" that was earlier used to split articles into train and test.
+
+```{r combining datasets}
+articleText$print = news$print
+articleText$type = news$type
+articleText$word.count = news$word.count
+articleText$popular = news$popular
+str(articleText)
+trainText = subset(articleText, spl==TRUE)
+testText = subset(articleText, spl==FALSE)
+```
+How many variables are in testText?
+
+**ANS:** 21
+
+**Explanation**
+
+These steps can be accomplished by setting articleText$print equal to articles$print, articleText$type equal to articles$type, articleText$word.count equal to articles$word.count, and articleText$popular equal to articles$popular.
+
+Then you can use the subset function to create trainText and testText. From str(testText), the data frame has 21 variables. 
+
+## Problem 20 - Training Another Logistic Regression Model
+
+Using trainText, train a logistic regression model called glmText to predict the dependent variable using all other variables in the data frame.
+
+How many of the word frequencies from the snippet text are significant at the p=0.05 level?
+
+```{r logistic Reg 2}
+glmText = glm(popular ~ . , data=trainText, family=binomial)
+summary(glmText)
+```
+
+**ANS:** 0
+
+**Explanation**
+
+The new model can be trained with the glm function and summarized with the summary function. The only significant terms are the intercept, print, typeNews, and word.count, none of which are word frequencies from the snippet text. 
+
+##  Problem 21 - Test Set AUC of New Logistic Regression Model 
+
+What is the test-set AUC of the new logistic regression model?
+
+```{r auc of new log reg mod}
+LogRegPred2 = predict(glmText, newdata=testText, type="response")
+table(testText$popular, LogRegPred2 >= 0.5)
+summary(LogRegPred2)
+pred2 = prediction(LogRegPred2, testText$popular)
+
+as.numeric(performance(pred2, "auc")@y.values)
+as.numeric(performance(pred, "auc")@y.values)
+```
+
+**ANS**: 0.6852357
+
+**Explanation**
+
+The test-set predictions can be computed with the predict function, and the AUC can be computed with the prediction and performance functions from the ROCR package.
+
+## Problem 22 - Assessing Overfitting of New Model
+
+What is the most accurate description of the new logistic regression model?
+
+1. glmText is not overfitted, and removing variables would not improve its test-set performance. 
+2. glmText is not overfitted, but removing variables would improve its test-set performance. 
+3. glmText is overfitted, but removing variables would not improve its test-set performance. 
+4. glmText is overfitted, but removing variables would not improve its test-set performance. 
+5. glmText is overfitted, and removing variables would improve its test-set performance. 
+
+**ANS**: 4
+
+**Explanation**
+
+glmText has more variables than the base logistic regression model, but it exhibits significantly worse test-set performance (AUC of 0.685 vs. 0.785). Therefore, removing variables would improve the test-set performance (e.g. removing all word frequencies would improve test-set AUC by 0.100). 

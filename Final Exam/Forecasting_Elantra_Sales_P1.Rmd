@@ -321,22 +321,28 @@ You can compute the SST as the sum of the squared differences between ElantraSal
 
 What is the largest absolute error that we make in our test set predictions?
 
+LinRegModel4$residuals gives the errors for the training set - we are asking for the largest absolute error on the test set. You have to compute these "by hand", by taking the difference between your predictions on the test set, and the actual value of the dependent variable on the test set. 
+
 ```{r absolute errors}
-max(abs(LinRegModel4$residuals))
-max(LinRegModel4Pred)
+max(abs(test$ElantraSales-LinRegModel4Pred))
+
 ```
 
-Unable to answer this!!
 
 **Explanation**
 
-You can get this answer by using the max function and the abs function.
+You can get this answer by using the max function and the abs function as shown above.
 
 ##  Problem 20 - Month of Largest Error 
 
 In which period (Month,Year pair) do we make the largest absolute error in our prediction?
 
-Unable to answer this as well!!!
+```{r largest absolute errors in which period}
+which.max(abs(test$ElantraSales-LinRegModel4Pred))
+test$Month[5]
+test$Year[14]
+```
+**ANS**: 3/2013
 
 **Explanation**
 

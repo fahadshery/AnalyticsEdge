@@ -1,0 +1,346 @@
+Clustering Stock Returns
+==========================
+
+When building portfolios of stocks, investors seek to obtain good returns while limiting the variability in those returns over time. This can be achieved by selecting stocks that show different patterns of returns. In this problem, we will use clustering to identify clusters of stocks that have similar returns over time; an investor might select a diverse portfolio by selecting stocks from different clusters.
+
+For this problem, we'll use nasdaq_returns.csv, which contains monthly stock returns from the NASDAQ stock exchange from 2000-2009, limiting to tickers that were listed on the exchange that entire period and whose stock price never fell below $1. The NASDAQ is the second-largest stock exchange in the world, and it lists many technology companies. The stock price data used in this problem was obtained from infochimps, a website providing access to many datasets, and the industry information was obtained from Yahoo! Finance. This dataset contains the following variables:
+
+1. stock_symbol: The symbol identifying the company for the stock
+2. industry: The industry the stock is classified under
+3. subindustry: The sub-industry the stock is classified under
+4. ret2000.01-ret2009.12: The return for the stock during the variable's indicated month. The variable names have format "retYYYY.MM", where YYYY is the year and MM is the month. For instance, variable ret2005.02 refers to February 2005. The value stored is a proportional change in stock value during that month. For instance, a value of 0.05 means the stock increased in value 5% during the month, while a value of -0.02 means the stock decreased in value 2% during the month. There are 120 of these variables, for the 120 months in our dataset.
+
+## Problem 1 - Loading the Data
+
+Load nasdaq_returns.csv into a data frame called "stocks". How many companies are in the dataset?
+
+```{r Loading data}
+stocks = read.csv("nasdaq_returns.csv")
+str(stocks)
+summary(stocks)
+head(stocks)
+sum(table(stocks$stock_symbol))
+```
+**ANS**: 1158
+
+**Explanation**
+
+You can load the dataset with the read.csv function, and see how many companies are included with either the str or nrow function.
+
+## Problem 2 - Summarizing the Data
+
+For which industries are there 40 or more companies in our dataset?
+
+```{r summarizing data}
+table(stocks$industry)
+```
+**ANS**: Basic Materials, Consumer Goods, Financial, Healthcare,  Industrial Goods, Services, Technology
+
+## Problem 3 - Stock Trends in the Data
+
+In the aftermath of the dot-com bubble bursting in the early 2000s, the NASDAQ was quite tumultuous. In December 2000, how many stocks in our dataset saw their value increase by 10% or more?
+
+
+```{r summarizing data 2}
+sum(sort(stocks$ret2000.12>=0.10))
+sum(sort(stocks$ret2000.12<=-0.10))
+
+```
+**ANS**: 309
+
+In December 2000, how many stocks in our dataset saw their value decrease by 10% or more?
+
+**ANS**: 261
+
+## Problem 4 - Stock Trends in the Data
+
+Entering the Great Recession most stocks lost significant value, but some sectors were hit harder than others. In October 2008, which of the following industries had the worst average return across the stocks in that industry?
+
+Basic Materials 
+Consumer Goods
+Financial Financial 
+Healthcare 
+Industrial Goods
+Services 
+Technology
+
+```{r recession hit}
+sort(tapply(stocks$ret2008.10,stocks$industry,mean))
+
+sort(tapply(stocks$ret2000.02,stocks$industry,mean))
+
+```
+
+**ANS**: Basic Materials
+
+February 2000 was the third strongest month in the dataset in terms of average returns. However, which of the following industries actually had a negative average return during that month?
+
+Basic Materials
+Consumer Goods
+Financial 
+Healthcare
+Industrial Goods
+Services
+Technology
+
+**ANS**: Financial
+
+##  Problem 5 - Preparing the Dataset 
+
+Copy the stocks data frame into a new data frame called "limited", and remove the first three variables of limited: stock_symbol, industry, and subindustry.
+
+```{r new dataset}
+limited = stocks
+limited$stock_symbol = NULL
+limited$industry = NULL
+limited$subindustry = NULL
+str(limited)
+```
+
+Now, identify the month with the largest average return across all stocks in the dataset. What is the variable name associated with this month (for instance, if your answer were February 2004, you would answer ret2004.02)?
+
+```{r largest ave return}
+sort(colMeans(limited))
+which.max(colMeans(limited))
+which.min(colMeans(limited))
+
+```
+
+**ANS**: ret2009.04
+
+Identify the month with the lowest average return across all the stocks in the dataset. What is the variable name associated with this month?
+
+**ANS**: ret2008.10
+
+**Explanation**
+
+These can be efficiently determined using colMeans and sort or which.max/which.min on the limited data frame, though it could also be determined using the summary function. 
+
+## Problem 6 - Preparing for Clustering
+
+We are about to cluster our data. Why did we remove the stock_symbol, industry, and subindustry variables prior to clustering our data?
+
+1. No reason -- we could have clustered the dataset with these variables still in it. 
+2. If we had included these variables in our clustering analysis, they would have caused some of the pairwise distance calculations to fail.  
+3. While we could have run the clustering analysis with these variables in our dataset, we removed them so they don't bias our analysis. 
+
+**ANS**: 2
+
+**Explanation**
+
+Because these are text variables, they would have caused some of the pairwise distance calculations to fail. 
+
+## Problem 7 - Normalizing
+
+In this analysis, we will not normalize our data prior to clustering. Why is this a valid approach?
+
+1. All the variables have the same scale, so no normalization is necessary 
+2. Because this dataset is so large, normalization would be prohibitively slow
+3. Normalization would have caused an error for this dataset
+
+**ANS**: 1
+
+Explanation
+
+All data in the "limited" data frame has the same scale, so we don't need to normalize (though doing so would have been valid, as well). 
+
+## Problem 8 - Hierarchical Clustering
+
+Using Euclidean distances (the default) and the Ward method, perform hierarchical clustering on the "limited" data frame, and plot the resulting dendrogram.
+
+Which of the following number of clusters is least appropriate, based on the dendrogram?
+
+```{r clustering on limited dataset}
+
+#convert to Matrix
+limitedMatrix = as.matrix(limited)
+
+#check the structure again
+str(limitedMatrix)
+
+##now convert this matrix to vector for clustering
+limitedVector = as.vector(limitedMatrix)
+
+#check the structure again
+str(limitedVector)
+
+#compute the distances (using method="euclidean") and use hclust to build the model (using method="ward"). 
+distance = dist(limited, method="euclidean")
+
+#now build hierarchical clusters
+LimitedClusters = hclust(distance, method="ward")
+
+plot(LimitedClusters)
+
+```
+**ANS**: 4
+
+Explanation
+
+You can use the dist() function (with the method="euclidean" argument) and the hclust() function (with the method="ward" argument) to perform hierarchical clustering, and plot() to display the dendrogram. There is very little space in the dendrogram where four clusters are selected. 
+
+## Problem 9 - The Hierarchical Clusters
+
+Extract cluster assignments from your hierarchical clustering object, using 5 clusters in total. Which cluster has the largest number of stocks?
+
+```{r cluter assignments}
+clusters = cutree(LimitedClusters, k=5)
+str(clusters)
+sort(table(clusters))
+```
+
+**ANS**: 3
+
+**Explanation**
+
+You can assign the observations to clusters with the cutree function, and then count the number of observations in each cluster with the table function.
+
+## Problem 10 - Understanding the Clusters
+
+Which cluster best fits the description "healthcare and technology stocks"?
+
+```{r cluster understanding}
+table(clusters)
+sort(tapply(limited$ret2000.02, clusters, mean))
+tail(lapply(split(limited, clusters), colMeans))
+
+tail(sort(colMeans(cluster3[-1])))
+```
+
+## Problem 11 - Sub-Industries
+
+We can get a finer-grained understanding of the composition of the clusters by looking at subindustry information. Which cluster contains nearly all companies categorized in the subindustry "Apparel Stores" (part of the services industry)?
+
+Cluster 1 
+Cluster 2 
+Cluster 3 
+Cluster 4 
+Cluster 5
+
+**ANS** Cluster 3
+
+Which cluster contains all stocks categorized in sub-industry "Electronics Wholesale" (another part of the services industry)?
+
+**ANS** Cluster 2
+
+**Explanation**
+
+This can be determined with the table() function. 
+
+## Problem 12 - Stock Trends in the Clusters
+
+For some months, we expect there to be significant differences between the returns of stocks in different clusters. In February 2000, the average return of stocks in Cluster 3 was negative, while the average return of stocks in one of the other clusters was more than 100%. What cluster had the average return exceeding 100%?
+
+```{r stock trends}
+table(clusters)
+sort(tapply(limited$ret2000.02, clusters, mean))
+```
+**ANS**: Cluster 4
+
+For which of the following months did one cluster have an average return exceeding 30% and another cluster have a negative average return?
+
+March 2000 
+May 2005 
+October 2009 
+December 2009
+
+```{r stock trends 2}
+table(clusters)
+sort(tapply(limited$ret2000.03, clusters, mean))
+sort(tapply(limited$ret2005.05, clusters, mean))
+sort(tapply(limited$ret2009.10, clusters, mean))
+sort(tapply(limited$ret2009.12, clusters, mean))
+
+```
+**ANS**: March 2000
+
+**Explanation**
+
+These questions can be answered using the tapply() function, grouping by hierarchical clusters. 
+
+## Problem 13 - Using a Visualization
+
+Which of the following visualizations could be used to observe the distribution of stock returns in February 2000, broken down by cluster? Select all that apply.
+
+1. A box plot of the variable ret2000.02, subdivided by cluster 
+2. A box plot of the clusters, subdivided by ret2000.02 values
+3. ggplot with the cluster number on the x-axis and ret2000.02 on the y-axis, plotting with geom_line() 
+4. ggplot with ret2000.02 on the x-axis and the cluster number on the y-axis, plotting with geom_point()
+
+**ANS**: 1,4
+
+**Explanation**
+
+A box plot of ret2000.02 shows the distribution of the returns from February 2000, and we want to subdivide by cluster. Alternately, ggplot with x and y as the return and cluster plots the data, but only geom_point is appropriate to show the distribution of the data. 
+
+## Problem 14 - k-Means Clustering
+
+Now set the seed to 144 and immediately afterward run k-means clustering on the "limited" data frame, using 5 clusters. How many stocks are in the smallest cluster?
+
+```{r k-means clustering}
+
+set.seed(144)
+
+LimitedKMC = kmeans(limited, centers=5)
+
+#check the structure
+str(LimitedKMC)
+
+#How many stocks in the smallest cluster?
+sort(table(LimitedKMC$cluster))
+
+```
+
+**ANS**: 53
+
+**Explanation**
+
+This can be determined by using the kmeans() function and looking at the "cluster" field in the output. 
+
+## Problem 15 - Comparing Clustering Algorithms
+
+k-means cluster number 4 contains more than half of its members from which hierarchical cluster?
+
+```{r }
+table(clusters, LimitedKMC$cluster)
+
+```
+**ANS**: Hierarchical Cluster 2
+
+**Explanation**
+
+This can be determined by using table() and passing the k-means clusters and the hierarchical clusters. 
+
+## Problem 16 - Random Behavior
+
+If we re-ran hierarchical clustering a second time without making any additional calls to set.seed(), would we expect:
+
+Different results from the first hierarchical clustering 
+Identical results to the first hierarchical clustering 
+
+**ANS**: Identical results to the first hierarchical clustering 
+
+If we re-ran k-means clustering a second time without making any additional calls to set.seed(), would we expect:
+
+Different results from the first k-means clustering 
+Identical results to the first k-means clustering
+
+**ANS**: Different results from the first k-means clustering 
+
+**Explanation**
+
+Hierarchical clustering is deterministic, so the random seed does not affect its results. k-means clustering is randomized, so the seed affects its results. 
+
+## Problem 17 - Creating a Diverse Portfolio
+
+In the introduction to the problem, we discussed the value of a diverse portfolio and how we might achieve this objective by selecting stocks from different clusters. Consider an investor with a large holding of stock from the company with stock_symbol AAPL. Which of the following stock symbols is neither in the same hierarchical cluster nor in the same k-means cluster as AAPL?
+
+AMZN 
+MSFT 
+TROW 
+
+**ANS**: TROW
+
+Explanation
+
+Using the which() function you can look up the row number for each of these stocks, and then you can look up the assigned clusters using those numbers. Alternatively, you can use the table function. 

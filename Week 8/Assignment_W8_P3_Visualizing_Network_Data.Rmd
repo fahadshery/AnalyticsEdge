@@ -28,6 +28,9 @@ edges = read.csv("edges.csv")
 users = read.csv("users.csv")
 str(users)
 str(edges)
+test = as.factor(c("","","Domestic Partners (no kids)", "Domestic Partners (w/kids)", "Domestic Partners (w/kids)", ""))
+table(test)
+test = as.integer(test)
 
 ```
 
