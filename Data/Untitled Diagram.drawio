@@ -1,19 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2022-07-08T22:36:28.023Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="RAPh_iMXa2E2bd_zufCn" version="20.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2022-07-08T22:45:14.514Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="FWWg8QjNv6WnlQ70yMs9" version="20.0.4" type="github">
   <diagram name="Page-1" id="bfe91b75-5d2c-26a0-9c1d-138518896778">
     <mxGraphModel dx="3043" dy="1873" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="NYhFjM4AT_t--Yr5wofG-42" value="VLAN50 Fuse - 192.168.50.0/24&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#6c8ebf;strokeWidth=2;fillColor=#dae8fc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
-          <mxGeometry x="75" y="1340" width="1065" height="420" as="geometry" />
+        <mxCell id="NYhFjM4AT_t--Yr5wofG-42" value="VLAN50 Fuse - 192.168.50.0/24&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#001DBC;strokeWidth=2;fillColor=#0050ef;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="75" y="1340" width="1065" height="340" as="geometry" />
         </mxCell>
-        <mxCell id="7c3789c024ecab99-82" value="VLAN10 EVIL - 10.10.10.0/24&lt;br&gt;&amp;nbsp;for Malware analysis, infected Machines&lt;br&gt;Can not Access: Anything but just the Internet" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#b85450;strokeWidth=2;fillColor=#f8cecc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
-          <mxGeometry x="78" y="1800" width="1065" height="420" as="geometry" />
+        <mxCell id="7c3789c024ecab99-82" value="VLAN10 EVIL - 10.10.10.0/24&lt;br&gt;&amp;nbsp;for Malware analysis, infected Machines&lt;br&gt;Can not Access: Anything but just the Internet" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#A50040;strokeWidth=2;fillColor=#d80073;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="78" y="1700" width="1065" height="340" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-81" value="VLAN1030 IOT&amp;nbsp;- 10.10.30.0/24&lt;br&gt;IoT devices, Hive, Lidl Gateway" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#d6b656;strokeWidth=2;fillColor=#fff2cc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="75" y="900" width="1065" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="7c3789c024ecab99-79" value="VLAN 20 HOME_SERVICES - 192.168.40.0/24&lt;br&gt;K8s, Docker, Internal VMs&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#82b366;strokeWidth=2;fillColor=#d5e8d4;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
+        <mxCell id="7c3789c024ecab99-79" value="VLAN 20 HOME_SERVICES - 192.168.40.0/24&lt;br&gt;K8s, Docker, Internal VMs&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#d79b00;strokeWidth=2;fillColor=#ffcd28;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;gradientColor=#ffa500;" parent="1" vertex="1">
           <mxGeometry x="78" y="462" width="1065" height="420" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-78" value="Home Network 192.168.1.0/24" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#036897;strokeWidth=2;fillColor=none;fontFamily=Verdana;fontSize=28;fontColor=#6881B3;align=center;arcSize=11;verticalAlign=top;fontStyle=1" parent="1" vertex="1">
@@ -66,22 +66,22 @@
           <mxGeometry x="1729" y="870" width="181" height="155" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-57" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.storage;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="330" y="1640.41" width="100" height="100" as="geometry" />
+          <mxGeometry x="300" y="1535" width="100" height="100" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-61" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="130.00000000000026" y="2115.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="114.00000000000026" y="1910.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-62" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="270.0000000000002" y="2115.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="254.00000000000023" y="1910.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-63" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="390.0000000000002" y="2115.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="374.0000000000002" y="1910.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-64" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="510.0000000000002" y="2115.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="494.0000000000002" y="1910.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-65" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="640.0000000000002" y="2115.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="624.0000000000002" y="1910.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="NYhFjM4AT_t--Yr5wofG-1" value="" style="endArrow=none;html=1;rounded=0;fontSize=29;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=6;" parent="1" source="7c3789c024ecab99-53" target="7c3789c024ecab99-54" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -166,7 +166,7 @@
           <mxGeometry x="1340" y="670" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="NYhFjM4AT_t--Yr5wofG-43" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;rounded=0;shadow=0;comic=0;" parent="1" vertex="1">
-          <mxGeometry x="127.00000000000026" y="1655.4117647058824" width="100" height="70" as="geometry" />
+          <mxGeometry x="160.00000000000026" y="1550.0017647058824" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="NYhFjM4AT_t--Yr5wofG-48" value="" style="endArrow=none;html=1;rounded=0;fontSize=20;strokeWidth=6;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="7c3789c024ecab99-8" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -205,7 +205,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="NYhFjM4AT_t--Yr5wofG-55" value="Security Onion" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/fruits-and-veggies-2/270/fruits-and-veggies-icons_onion-128.png;fontSize=20;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="950" y="1920" width="128" height="128" as="geometry" />
+          <mxGeometry x="950" y="1840" width="128" height="128" as="geometry" />
         </mxCell>
         <mxCell id="c4OLY-X5bbmTI7L81C6x-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.226;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=5;" parent="1" source="NYhFjM4AT_t--Yr5wofG-56" target="NYhFjM4AT_t--Yr5wofG-57" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -257,6 +257,12 @@
         </mxCell>
         <mxCell id="ooJVKOI1h2YbClv-LT1r-8" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/security-double-color-red-and-black-vol-1/52/camera__record__security__cctv-128.png;fontSize=24;" vertex="1" parent="1">
           <mxGeometry x="926" y="961.41" width="128" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="ooJVKOI1h2YbClv-LT1r-9" value="" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=kubelet;fontSize=26;" vertex="1" parent="1">
+          <mxGeometry x="250" y="570" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ooJVKOI1h2YbClv-LT1r-10" value="VLAN10 EVIL - 10.10.10.0/24&lt;br&gt;TrueNAS" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#006EAF;strokeWidth=2;fillColor=#1ba1e2;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="70" y="2060" width="1065" height="340" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
