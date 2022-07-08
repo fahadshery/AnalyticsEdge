@@ -1,16 +1,16 @@
-<mxfile host="app.diagrams.net" modified="2022-07-08T19:03:17.183Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.124 Safari/537.36 Edg/102.0.1245.44" etag="KXfITnkcP53UDid4IHcc" version="20.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2022-07-08T22:26:40.814Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="EudPr7uAt0k6UhrBlaD5" version="20.0.4" type="github">
   <diagram name="Page-1" id="bfe91b75-5d2c-26a0-9c1d-138518896778">
-    <mxGraphModel dx="4124" dy="2308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1660" dy="1022" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="NYhFjM4AT_t--Yr5wofG-42" value="VLAN50 - 192.168.50.0/24&lt;br&gt;Fuse&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#6c8ebf;strokeWidth=2;fillColor=#dae8fc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="75" y="1340" width="1065" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="7c3789c024ecab99-82" value="VLAN10 - 10.10.10.0/24&lt;br&gt;Evil VLAN for Malware analysis, infected Machines&lt;br&gt;Can not Access: Anything but just the Internet" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#b85450;strokeWidth=2;fillColor=#f8cecc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
+        <mxCell id="7c3789c024ecab99-82" value="VLAN10 EVIL - 10.10.10.0/24&lt;br&gt;&amp;nbsp;for Malware analysis, infected Machines&lt;br&gt;Can not Access: Anything but just the Internet" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#b85450;strokeWidth=2;fillColor=#f8cecc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="78" y="1800" width="1065" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="7c3789c024ecab99-81" value="VLAN1030 - 10.10.30.0/24&lt;br&gt;IoT devices, Hive, Lidl Gateway" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#d6b656;strokeWidth=2;fillColor=#fff2cc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
+        <mxCell id="7c3789c024ecab99-81" value="VLAN1030 IOT&amp;nbsp;- 10.10.30.0/24&lt;br&gt;IoT devices, Hive, Lidl Gateway" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#d6b656;strokeWidth=2;fillColor=#fff2cc;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="75" y="900" width="1065" height="420" as="geometry" />
         </mxCell>
         <mxCell id="7c3789c024ecab99-79" value="VLAN 20 - 192.168.40.0/24&lt;br&gt;K8s, Docker, Internal VMs&lt;br&gt;Can not Access: pfSense Web" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;comic=0;strokeColor=#82b366;strokeWidth=2;fillColor=#d5e8d4;fontFamily=Verdana;fontSize=28;align=center;arcSize=11;verticalAlign=top;" parent="1" vertex="1">
@@ -63,7 +63,7 @@
         <mxCell id="7c3789c024ecab99-53" value="Internet" style="html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.cloud;rounded=0;shadow=0;comic=0;align=center;fontSize=28;" parent="1" vertex="1">
           <mxGeometry x="1850" y="70" width="330" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="NYhFjM4AT_t--Yr5wofG-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=29;strokeWidth=6;" parent="1" source="7c3789c024ecab99-54" edge="1" target="NYhFjM4AT_t--Yr5wofG-56">
+        <mxCell id="NYhFjM4AT_t--Yr5wofG-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=29;strokeWidth=6;" parent="1" source="7c3789c024ecab99-54" target="NYhFjM4AT_t--Yr5wofG-56" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1568" y="319.9000000000001" as="targetPoint" />
           </mxGeometry>
@@ -216,10 +216,10 @@
         <mxCell id="NYhFjM4AT_t--Yr5wofG-55" value="Security Onion" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/fruits-and-veggies-2/270/fruits-and-veggies-icons_onion-128.png;fontSize=20;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="950" y="1920" width="128" height="128" as="geometry" />
         </mxCell>
-        <mxCell id="c4OLY-X5bbmTI7L81C6x-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.226;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=5;" edge="1" parent="1" source="NYhFjM4AT_t--Yr5wofG-56" target="NYhFjM4AT_t--Yr5wofG-57">
+        <mxCell id="c4OLY-X5bbmTI7L81C6x-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.226;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=5;" parent="1" source="NYhFjM4AT_t--Yr5wofG-56" target="NYhFjM4AT_t--Yr5wofG-57" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c4OLY-X5bbmTI7L81C6x-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=5;" edge="1" parent="1" source="NYhFjM4AT_t--Yr5wofG-56" target="NYhFjM4AT_t--Yr5wofG-57">
+        <mxCell id="c4OLY-X5bbmTI7L81C6x-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=5;" parent="1" source="NYhFjM4AT_t--Yr5wofG-56" target="NYhFjM4AT_t--Yr5wofG-57" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="NYhFjM4AT_t--Yr5wofG-56" value="OpenWRT" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;fontSize=17;fontStyle=1" parent="1" vertex="1">
@@ -237,13 +237,13 @@
         <mxCell id="NYhFjM4AT_t--Yr5wofG-61" value="192.168.50.1/24, Gateway:192.168.50.254&lt;br&gt;10.10.10.1/24" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=33;" parent="1" vertex="1">
           <mxGeometry x="1420" y="1445.5900000000001" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="c4OLY-X5bbmTI7L81C6x-4" value="VLAN10 (EVIL) - no ip interface&lt;br style=&quot;font-size: 14px;&quot;&gt;VLAN50 - FUSE - 192.168.50.254&lt;br style=&quot;font-size: 14px;&quot;&gt;VLAN55- pfSense - 192.168.55.254 (doesnt make a difference)&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="c4OLY-X5bbmTI7L81C6x-4" value="VLAN10 (EVIL) - no ip interface&lt;br style=&quot;font-size: 14px;&quot;&gt;VLAN50 - FUSE - 192.168.50.254&lt;br style=&quot;font-size: 14px;&quot;&gt;VLAN55- pfSense - 192.168.55.254 (doesnt make a difference)&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="1280" y="520" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="c4OLY-X5bbmTI7L81C6x-5" value="" style="sketch=0;points=[[0.015,0.015,0],[0.985,0.015,0],[0.985,0.985,0],[0.015,0.985,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];verticalLabelPosition=bottom;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.dns_server;fillColor=#005073;strokeColor=none;" vertex="1" parent="1">
+        <mxCell id="c4OLY-X5bbmTI7L81C6x-5" value="" style="sketch=0;points=[[0.015,0.015,0],[0.985,0.015,0],[0.985,0.985,0],[0.015,0.985,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];verticalLabelPosition=bottom;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.dns_server;fillColor=#005073;strokeColor=none;" parent="1" vertex="1">
           <mxGeometry x="674.5" y="140" width="49.5" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="c4OLY-X5bbmTI7L81C6x-7" value="192.168.1.254" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="c4OLY-X5bbmTI7L81C6x-7" value="192.168.1.254" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="1940" y="510" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
