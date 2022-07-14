@@ -1,4 +1,4 @@
-<mxfile modified="2022-07-14T10:36:28.297Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="nmhnoEdo_3bh5_mrW-2N" version="20.0.4" type="github">
+<mxfile modified="2022-07-14T10:38:12.291Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="pCbjUeh_YWpNbXHaAZwB" version="20.0.4" type="github">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="918" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -141,7 +141,7 @@
           <mxGeometry x="731.87" y="166" width="36.27" height="34" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-25" value="Fuse VLAN - &lt;br&gt;DHCP from piHole p-53&lt;br&gt;No piHole web Interface&lt;br&gt;No Router web Interface&lt;br&gt;No Connection to Primary Router devices but router devices can talk to it" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="908" y="694" width="210" height="30" as="geometry" />
+          <mxGeometry x="930.25" y="740" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-27" value="piHole&lt;br&gt;Static IP&lt;br&gt;192.168.10.99" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/VM_Linux.svg;fillColor=none;labelPosition=center;verticalLabelPosition=top;verticalAlign=bottom;" vertex="1" parent="1">
           <mxGeometry x="930.25" y="210" width="50" height="46" as="geometry" />
