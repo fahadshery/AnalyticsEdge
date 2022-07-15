@@ -1,4 +1,4 @@
-<mxfile modified="2022-07-15T15:31:51.080Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="WQ8SpeMRPtSAunMssGya" version="20.0.4" type="github">
+<mxfile modified="2022-07-15T15:33:14.459Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="kX1MkKHf8Gyk8tC4F5Gh" version="20.0.4" type="github">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="918" dy="552" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -137,7 +137,7 @@
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-8" value="bond0&lt;br&gt;&lt;span style=&quot;text-align: start; font-family: helvetica, arial, verdana, sans-serif; font-size: 13px; background-color: rgb(255, 255, 255);&quot;&gt;enp4s0f0&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;text-align: start; font-family: helvetica, arial, verdana, sans-serif; font-size: 13px; background-color: rgb(255, 255, 255);&quot;&gt;enp4s0f1&lt;br&gt;vmbr2&lt;br&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="370" y="420" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="mPrYQ4_3OiID5dz4hrqd-11" value="Access Point&lt;br&gt;in bridge mode&lt;br&gt;Assign Static IP" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_N_128x128.png;fillColor=none;" parent="1" vertex="1">
+        <mxCell id="mPrYQ4_3OiID5dz4hrqd-11" value="Access Point&lt;br&gt;no firewall, DHCP etc.&lt;br&gt;Assign Static IP" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_N_128x128.png;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="930.25" y="310" width="59.75" height="55.25" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-18" value="Fuse - Static Assigned&lt;br&gt;via pfSense &lt;br&gt;192.168.10.10" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" parent="1" vertex="1">
