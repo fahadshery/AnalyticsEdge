@@ -1,4 +1,4 @@
-<mxfile modified="2022-07-18T13:40:31.020Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="A8vTsDo2121wIZyOfWuS" version="20.0.4" type="github">
+<mxfile modified="2022-07-18T13:42:16.256Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="aZFvDmIyV9eTdqNwLlyI" version="20.0.4" type="github">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="918" dy="552" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -87,6 +87,9 @@
           <mxGeometry x="529" y="570" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=flexArrow;" parent="1" source="-xF81zYl10iay85FKAHE-4" target="-xF81zYl10iay85FKAHE-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_GWeK7hs-Vl4s0ndYJsK-15" value="vmbr3 Span" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;fontColor=#000000;strokeWidth=3;" edge="1" parent="1" source="-xF81zYl10iay85FKAHE-4" target="-xF81zYl10iay85FKAHE-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="-xF81zYl10iay85FKAHE-4" value="Proxmox&lt;br&gt;vmbr0-192.168.10.5&lt;br&gt;static IP&lt;br&gt;default g/w&lt;br&gt;cisco switch&lt;br&gt;192.168.10.254" style="image;image=img/lib/clip_art/computers/Server_Rack_128x128.png;html=1;flipV=0;flipH=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" vertex="1">
