@@ -1,4 +1,4 @@
-<mxfile modified="2022-07-30T21:56:30.303Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="zL16VMjJvSllH_fz0Y2C" version="20.0.4" type="github">
+<mxfile modified="2022-08-05T08:43:58.388Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="5EEVprchKL-5pu7PuBQm" version="20.0.4" type="github">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="918" dy="551" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -26,7 +26,7 @@
           <mxGeometry x="668.14" y="610" width="151.86" height="160" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-23" value="VLAN 50 - Fuse&lt;br&gt;192.168.50.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="668.14" y="150" width="151.86" height="110" as="geometry" />
+          <mxGeometry x="668.14" y="150" width="151.86" height="90" as="geometry" />
         </mxCell>
         <mxCell id="3ne1QswCM8ZiEu4GHsYG-19" style="orthogonalLoop=1;jettySize=auto;html=1;curved=1;sourcePerimeterSpacing=5;targetPerimeterSpacing=5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="-xF81zYl10iay85FKAHE-2" target="-xF81zYl10iay85FKAHE-4" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -155,7 +155,7 @@
           <mxGeometry x="907" y="261" width="59.75" height="55.25" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-21" value="Static - 192.168.50.100" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/databases/Azure_SQL_VM.svg;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="731.87" y="166" width="36.27" height="34" as="geometry" />
+          <mxGeometry x="728.14" y="166" width="36.27" height="34" as="geometry" />
         </mxCell>
         <mxCell id="mPrYQ4_3OiID5dz4hrqd-25" value="Fuse VLAN - DHCP pfSense&lt;br&gt;piHole ONLY at p-53&lt;br&gt;No piHole web Interface&lt;br&gt;No Router web Interface&lt;br&gt;No Connection to Primary Router devices but router devices can talk to it" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="930.25" y="740" width="210" height="30" as="geometry" />
