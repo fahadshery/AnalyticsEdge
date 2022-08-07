@@ -1,4 +1,4 @@
-<mxfile modified="2022-08-07T13:22:01.864Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="wDr7m7nFswsPNQxDtJv8" version="20.0.4" type="github">
+<mxfile modified="2022-08-07T13:22:18.932Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="k6OHrtX-wh9ngx2IJVFd" version="20.0.4" type="github">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="918" dy="551" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -87,7 +87,7 @@
         <mxCell id="b4OV6eOz0u7KQnLVB__V-2" value="vmbr2 pfSense LAN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-xF81zYl10iay85FKAHE-4" target="-xF81zYl10iay85FKAHE-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-xF81zYl10iay85FKAHE-4" value="Proxmox&lt;br&gt;vmbr0-192.168.1.5&lt;br&gt;static IP&lt;br&gt;default g/w&lt;br&gt;pfSense LAN&lt;br&gt;192.168.1.1" style="image;image=img/lib/clip_art/computers/Server_Rack_128x128.png;html=1;flipV=0;flipH=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" vertex="1">
+        <mxCell id="-xF81zYl10iay85FKAHE-4" value="Proxmox&lt;br&gt;vmbr0-192.168.5.5&lt;br&gt;static IP&lt;br&gt;default g/w&lt;br&gt;pfSense LAN&lt;br&gt;192.168.5.1" style="image;image=img/lib/clip_art/computers/Server_Rack_128x128.png;html=1;flipV=0;flipH=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" vertex="1">
           <mxGeometry x="360" y="310.25" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="-xF81zYl10iay85FKAHE-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;flowAnimation=1;strokeWidth=3;" parent="1" source="-xF81zYl10iay85FKAHE-5" target="-xF81zYl10iay85FKAHE-9" edge="1">
