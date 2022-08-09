@@ -1,4 +1,4 @@
-<mxfile modified="2022-08-09T18:07:53.518Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="XO7lw-8KejG_Z-SdTMnm" version="20.2.3" type="github" pages="3">
+<mxfile modified="2022-08-09T18:08:48.926Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="dU3cnh_hH3NZcZ14MUQ3" version="20.2.3" type="github" pages="3">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="1327" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -272,7 +272,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="DmYVKURvfBBXKqwaEntE-6" value="GuestNet&lt;br&gt;10.10.30.0/24" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-wifi-128.png;strokeWidth=1;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="469.75" y="703" width="27" height="27" as="geometry" />
+          <mxGeometry x="360" y="701" width="27" height="27" as="geometry" />
         </mxCell>
         <mxCell id="DmYVKURvfBBXKqwaEntE-8" value="VLAN172-IoT&lt;br&gt;172.16.16.0/24" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-wifi-128.png;strokeWidth=1;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="360" y="765.23" width="27" height="27" as="geometry" />
