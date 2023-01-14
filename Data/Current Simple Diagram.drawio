@@ -1,4 +1,4 @@
-<mxfile modified="2023-01-14T17:45:19.855Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="alMp6B_5h3O0eLCzFnyl" version="20.8.5" type="github" pages="2">
+<mxfile modified="2023-01-14T17:45:55.804Z" host="app.diagrams.net" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="eDFdyGNyynPvD9eJbkIn" version="20.8.5" type="github" pages="2">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="2073" dy="1118" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -378,6 +378,9 @@
         </mxCell>
         <mxCell id="3l4Tvx_v97eOXQp5n3Gr-1" value="VLAN 100 - Gaming&lt;br&gt;192.168.100.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d80073;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;strokeColor=#A50040;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="832.76" y="80.63" width="140.2" height="84.75" as="geometry" />
+        </mxCell>
+        <mxCell id="3l4Tvx_v97eOXQp5n3Gr-3" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.virtual_pc;" vertex="1" parent="1">
+          <mxGeometry x="838.86" y="105.87" width="51.14" height="35.63" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
