@@ -1,4 +1,4 @@
-<mxfile modified="2023-11-11T15:09:06.152Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15" etag="v2lZNC6vfKNc48AXD2Y_" version="22.0.0" type="github" pages="2">
+<mxfile modified="2023-12-02T23:24:25.564Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15" etag="B72uaC3lJKNI6Y9Et46m" version="22.1.5" type="github" pages="2">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="1433" dy="805" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -413,8 +413,19 @@
         <mxCell id="_fvcWTlEl4eMYe8IO4Ds-8" value="&lt;b style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;WHONIX &lt;br style=&quot;font-size: 11px;&quot;&gt;GATEWAY&lt;br&gt;INTERNET FACING&lt;br&gt;&lt;/font&gt;10.0.2.15/24&lt;br&gt;&lt;/b&gt;" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.virtual_pc;" parent="1" vertex="1">
           <mxGeometry x="890" y="90" width="34.86" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b6xwYWLoMtBuC887rExB-1" value="&lt;b&gt;chatGPT&lt;/b&gt;" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.virtual_pc;" vertex="1" parent="1">
+        <mxCell id="b6xwYWLoMtBuC887rExB-1" value="&lt;b&gt;chatGPT&lt;/b&gt;" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.virtual_pc;" parent="1" vertex="1">
           <mxGeometry x="460" y="152.87" width="31.14" height="24.13" as="geometry" />
+        </mxCell>
+        <mxCell id="ALXwrf61-D-rHI_h674x-1" value="mini-gamer-pc" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.workstation_pc;" vertex="1" parent="1">
+          <mxGeometry x="110" y="740.23" width="53" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="ALXwrf61-D-rHI_h674x-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;flowAnimation=1;strokeWidth=2;" edge="1" parent="1" source="ALXwrf61-D-rHI_h674x-1" target="-xF81zYl10iay85FKAHE-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="770" />
+              <mxPoint x="490" y="610" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
