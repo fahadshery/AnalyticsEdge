@@ -1,4 +1,4 @@
-<mxfile modified="2024-01-28T11:28:18.331Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="_FX804eDxRb80-iAHtZq" version="23.0.2" type="github" pages="2">
+<mxfile modified="2024-01-28T18:25:24.805Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="Lhn-5ijRL6LjhMeyhd6Q" version="23.0.2" type="github" pages="2">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="1433" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -533,6 +533,12 @@
         </mxCell>
         <mxCell id="JfYjrMjlhtJYayenDBNn-21" value="WAN CARP VIP 192.168.5.60/24" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
           <mxGeometry x="602.75" y="260" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BsAmV8budejtazYcbpFH-9" value="Primary&lt;br&gt;Firewall" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="7ZgQ226HxJFWJ-C1IouU-1">
+          <mxGeometry x="406" y="330" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BsAmV8budejtazYcbpFH-10" value="Secondary&lt;br&gt;Firewall" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="7ZgQ226HxJFWJ-C1IouU-1">
+          <mxGeometry x="820" y="330" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
