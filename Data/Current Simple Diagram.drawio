@@ -1,4 +1,4 @@
-<mxfile modified="2024-05-07T09:23:05.283Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="7SDubf-TQF_9YQQC1qes" version="24.3.1" type="github" pages="4">
+<mxfile modified="2024-05-07T09:24:01.165Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="OcE_c-nlzz2TgVYjffbp" version="24.3.1" type="github" pages="4">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="2394" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -941,31 +941,31 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-1" value="BT Home Router&lt;div style=&quot;font-size: 22px;&quot;&gt;192.168.1.0/24&lt;/div&gt;" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;fontStyle=1;fontSize=22;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-1" value="BT Home Router&lt;div style=&quot;font-size: 22px;&quot;&gt;192.168.1.0/24&lt;/div&gt;" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;fontStyle=1;fontSize=22;" parent="1" vertex="1">
           <mxGeometry x="340" y="380" width="150" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-2" value="iPad" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shadow=0;dashed=0;strokeWidth=1;shape=mxgraph.ios.iPad;bgStyle=bgGreen;fillColor=#aaaaaa;sketch=0;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-2" value="iPad" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shadow=0;dashed=0;strokeWidth=1;shape=mxgraph.ios.iPad;bgStyle=bgGreen;fillColor=#aaaaaa;sketch=0;" parent="1" vertex="1">
           <mxGeometry x="130" y="770" width="140" height="175" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-3" value="iPad 2" style="image;html=1;image=img/lib/clip_art/computers/iPad_128x128.png" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-3" value="iPad 2" style="image;html=1;image=img/lib/clip_art/computers/iPad_128x128.png" parent="1" vertex="1">
           <mxGeometry x="340" y="650" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-4" value="iPhone" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shadow=0;dashed=0;strokeWidth=1;shape=mxgraph.ios.iPhone;bgStyle=bgGreen;fillColor=#aaaaaa;sketch=0;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-4" value="iPhone" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shadow=0;dashed=0;strokeWidth=1;shape=mxgraph.ios.iPhone;bgStyle=bgGreen;fillColor=#aaaaaa;sketch=0;" parent="1" vertex="1">
           <mxGeometry x="650" y="735" width="110" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-5" value="iPhone 2" style="image;html=1;image=img/lib/clip_art/telecommunication/iPhone_128x128.png" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-5" value="iPhone 2" style="image;html=1;image=img/lib/clip_art/telecommunication/iPhone_128x128.png" parent="1" vertex="1">
           <mxGeometry x="690" y="360" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-8" value="Guest" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.smartphone;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-8" value="Guest" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.smartphone;" parent="1" vertex="1">
           <mxGeometry x="230" y="210" width="30" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-9" value="Guest Phone" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.mobile_client;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-9" value="Guest Phone" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.mobile_client;" parent="1" vertex="1">
           <mxGeometry x="130" y="380" width="41" height="78" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-10" value="NAS" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#005F4B;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.nas;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-10" value="NAS" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#005F4B;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.nas;" parent="1" vertex="1">
           <mxGeometry x="450" y="110" width="120" height="118" as="geometry" />
         </mxCell>
-        <mxCell id="qcdTF3LMiJsiUgcGjtte-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#434445;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.vvd.wi_fi;" vertex="1" parent="1">
+        <mxCell id="qcdTF3LMiJsiUgcGjtte-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#434445;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.vvd.wi_fi;" parent="1" vertex="1">
           <mxGeometry x="490" y="370" width="50" height="50" as="geometry" />
         </mxCell>
       </root>
