@@ -1,4 +1,4 @@
-<mxfile modified="2024-05-07T09:28:09.676Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="5VfVOi1jaqAVh2Cep9xW" version="24.3.1" type="github" pages="4">
+<mxfile modified="2024-05-07T16:01:30.622Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="g1KJZ_Zik583SV2P26DP" version="24.3.1" type="github" pages="4">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="2394" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -963,7 +963,7 @@
           <mxGeometry x="130" y="380" width="41" height="78" as="geometry" />
         </mxCell>
         <mxCell id="qcdTF3LMiJsiUgcGjtte-10" value="NAS" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#005F4B;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.nas;" parent="1" vertex="1">
-          <mxGeometry x="450" y="110" width="120" height="118" as="geometry" />
+          <mxGeometry x="400" y="120" width="120" height="118" as="geometry" />
         </mxCell>
         <mxCell id="qcdTF3LMiJsiUgcGjtte-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#434445;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.vvd.wi_fi;" parent="1" vertex="1">
           <mxGeometry x="490" y="370" width="50" height="50" as="geometry" />
@@ -975,13 +975,25 @@
           <mxGeometry x="120" y="570" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="PvP0L9uOcQfVwVvDUZy1-3" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.media;" vertex="1" parent="1">
-          <mxGeometry x="550" y="60" width="60" height="60" as="geometry" />
+          <mxGeometry x="500" y="70" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PvP0L9uOcQfVwVvDUZy1-4" value="Website" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.website_generic;pointerEvents=1;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="390" y="67.5" width="50" height="42.5" as="geometry" />
+          <mxGeometry x="340" y="77.5" width="50" height="42.5" as="geometry" />
         </mxCell>
         <mxCell id="PvP0L9uOcQfVwVvDUZy1-5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.generic_firewall;" vertex="1" parent="1">
           <mxGeometry x="290" y="422" width="78" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="PvP0L9uOcQfVwVvDUZy1-6" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/miu-black-social-2/60/playstation-128.png" vertex="1" parent="1">
+          <mxGeometry x="422" y="793.5" width="128" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="PvP0L9uOcQfVwVvDUZy1-7" value="Game" style="html=1;whiteSpace=wrap;strokeColor=none;fillColor=#0079D6;labelPosition=center;verticalLabelPosition=middle;verticalAlign=top;align=center;fontSize=12;outlineConnect=0;spacingTop=-6;fontColor=#FFFFFF;sketch=0;shape=mxgraph.sitemap.game;" vertex="1" parent="1">
+          <mxGeometry x="670" y="190" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PvP0L9uOcQfVwVvDUZy1-8" value="Sensor" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.iot_thing_humidity_sensor;" vertex="1" parent="1">
+          <mxGeometry x="312" y="260" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PvP0L9uOcQfVwVvDUZy1-9" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/boxicons-solid-vol-1/24/bxs-cctv-128.png" vertex="1" parent="1">
+          <mxGeometry x="50" y="110" width="128" height="128" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
