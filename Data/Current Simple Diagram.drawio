@@ -1,4 +1,4 @@
-<mxfile modified="2024-05-07T16:01:30.622Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="g1KJZ_Zik583SV2P26DP" version="24.3.1" type="github" pages="4">
+<mxfile modified="2024-05-12T21:09:29.681Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="1N2oKE7uhU2eJTGuVvrE" version="24.3.1" type="github" pages="4">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="2394" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -969,7 +969,7 @@
           <mxGeometry x="490" y="370" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="PvP0L9uOcQfVwVvDUZy1-1" value="Smart TV" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.tv;fontStyle=1;fontSize=17;" vertex="1" parent="1">
-          <mxGeometry x="590" y="520" width="100" height="87" as="geometry" />
+          <mxGeometry x="590" y="490" width="140" height="117" as="geometry" />
         </mxCell>
         <mxCell id="PvP0L9uOcQfVwVvDUZy1-2" value="Printer" style="image;html=1;image=img/lib/clip_art/computers/Printer_128x128.png;fontStyle=1;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="120" y="570" width="80" height="80" as="geometry" />
