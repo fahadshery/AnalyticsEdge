@@ -1,4 +1,4 @@
-<mxfile modified="2024-05-12T21:09:29.681Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.15" etag="1N2oKE7uhU2eJTGuVvrE" version="24.3.1" type="github" pages="4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15" version="24.7.17" pages="4">
   <diagram id="C2fSY1v2SiZeoUbDoYyL" name="Page-1">
     <mxGraphModel dx="2394" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -437,7 +437,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="pfSense HA" id="g0JI3VxtElOKu5h2Jijv">
-    <mxGraphModel dx="2394" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="957" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="7ZgQ226HxJFWJ-C1IouU-0" />
         <mxCell id="7ZgQ226HxJFWJ-C1IouU-1" parent="7ZgQ226HxJFWJ-C1IouU-0" />
@@ -501,7 +501,7 @@
         <mxCell id="apV1DGtApPOmP6LWqLbl-2" value="LAN 192.168.10.3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
           <mxGeometry x="700" y="590" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="JfYjrMjlhtJYayenDBNn-1" value="WAN2&lt;br&gt;192.168.5.63" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
+        <mxCell id="JfYjrMjlhtJYayenDBNn-1" value="WAN2&lt;br&gt;192.168.5.64" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
           <mxGeometry x="820" y="210" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="JfYjrMjlhtJYayenDBNn-2" value="LAN 192.168.10.2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
@@ -510,7 +510,7 @@
         <mxCell id="JfYjrMjlhtJYayenDBNn-5" value="HP&lt;br&gt;pfSense" style="image;html=1;image=img/lib/clip_art/networking/Firewall-page1_128x128.png;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;fontStyle=1" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
           <mxGeometry x="760" y="350" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="JfYjrMjlhtJYayenDBNn-10" value="WAN1&lt;br&gt;192.168.5.62" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
+        <mxCell id="JfYjrMjlhtJYayenDBNn-10" value="WAN1&lt;br&gt;192.168.5.63" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" vertex="1">
           <mxGeometry x="394" y="210" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="JfYjrMjlhtJYayenDBNn-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="7ZgQ226HxJFWJ-C1IouU-1" source="JfYjrMjlhtJYayenDBNn-5" target="7ZgQ226HxJFWJ-C1IouU-24" edge="1">
