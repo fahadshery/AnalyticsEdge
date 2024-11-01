@@ -437,7 +437,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="pfSense HA" id="g0JI3VxtElOKu5h2Jijv">
-    <mxGraphModel dx="1342" dy="731" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="958" dy="587" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="7ZgQ226HxJFWJ-C1IouU-0" />
         <mxCell id="7ZgQ226HxJFWJ-C1IouU-1" parent="7ZgQ226HxJFWJ-C1IouU-0" />
